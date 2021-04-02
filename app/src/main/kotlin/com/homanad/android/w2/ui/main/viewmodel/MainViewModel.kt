@@ -2,9 +2,9 @@ package com.homanad.android.w2.ui.main.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.homanad.android.common.components.vm.BaseViewModel
-import com.homanad.android.w2.data.model.WalletData
-import com.homanad.android.w2.data.repository.minus.MinusRepository
-import com.homanad.android.w2.data.repository.wallet.WalletRepository
+import com.homanad.android.w2.data.model.Account
+import com.homanad.android.w2.data.repository.spending.SpendingRepository
+import com.homanad.android.w2.data.repository.account.AccountRepository
 import com.homanad.android.w2.ui.main.intent.MainIntent
 import com.homanad.android.w2.ui.main.viewstate.MainState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 class MainViewModel(
-    private val walletRepository: WalletRepository,
-    private val minusRepository: MinusRepository
+    private val accountRepository: AccountRepository,
+    private val spendingRepository: SpendingRepository
 ) : BaseViewModel() {
 
     val userIntent = Channel<MainIntent>(Channel.UNLIMITED)
@@ -36,9 +36,9 @@ class MainViewModel(
             userIntent.consumeAsFlow().collect {
                 when (it) {
                     is MainIntent.GetAllWalletIntent -> getAll()
-                    is MainIntent.CreateWalletIntent -> createWallet(it.walletData)
-                    is MainIntent.DeleteWalletIntent -> deleteWallet(it.walletData)
-                    is MainIntent.UpdateWalletIntent -> updateWallet(it.walletData)
+                    is MainIntent.CreateWalletIntent -> createWallet(it.account)
+                    is MainIntent.DeleteWalletIntent -> deleteWallet(it.account)
+                    is MainIntent.UpdateWalletIntent -> updateWallet(it.account)
                 }
             }
         }
@@ -48,18 +48,18 @@ class MainViewModel(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                MainState.Wallets(walletRepository.getAll())
+                MainState.Wallets(accountRepository.getAll())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
         }
     }
 
-    private fun createWallet(walletData: WalletData) {
+    private fun createWallet(account: Account) {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                walletRepository.createWallet(walletData)
+                accountRepository.createWallet(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
@@ -67,11 +67,11 @@ class MainViewModel(
         }
     }
 
-    private fun deleteWallet(walletData: WalletData) {
+    private fun deleteWallet(account: Account) {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                walletRepository.deleteWallet(walletData)
+                accountRepository.deleteWallet(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
@@ -79,11 +79,11 @@ class MainViewModel(
         }
     }
 
-    private fun updateWallet(walletData: WalletData) {
+    private fun updateWallet(account: Account) {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                walletRepository.updateWallet(walletData)
+                accountRepository.updateWallet(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)

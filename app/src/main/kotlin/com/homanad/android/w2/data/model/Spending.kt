@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MinusData(
+data class Spending(
     @PrimaryKey(autoGenerate = true)
     private val id: Long,
     private val title: String,

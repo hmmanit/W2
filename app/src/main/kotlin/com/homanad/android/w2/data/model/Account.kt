@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class WalletData(
+data class Account(
     @PrimaryKey(autoGenerate = true)
     private val id: Long,
     private val name: String,

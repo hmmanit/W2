@@ -2,14 +2,14 @@ package com.homanad.android.w2.di
 
 import android.content.Context
 import com.homanad.android.w2.data.db.WDatabase
-import com.homanad.android.w2.data.repository.minus.MinusRepository
-import com.homanad.android.w2.data.repository.minus.MinusRepositoryImpl
-import com.homanad.android.w2.data.repository.minus.datasource.MinusDataSource
-import com.homanad.android.w2.data.repository.minus.datasource.MinusDataSourceImpl
-import com.homanad.android.w2.data.repository.wallet.WalletRepository
-import com.homanad.android.w2.data.repository.wallet.WalletRepositoryImpl
-import com.homanad.android.w2.data.repository.wallet.datasource.WalletDataSource
-import com.homanad.android.w2.data.repository.wallet.datasource.WalletDataSourceImpl
+import com.homanad.android.w2.data.repository.spending.SpendingRepository
+import com.homanad.android.w2.data.repository.spending.SpendingRepositoryImpl
+import com.homanad.android.w2.data.repository.spending.datasource.SpendingDataSource
+import com.homanad.android.w2.data.repository.spending.datasource.SpendingDataSourceImpl
+import com.homanad.android.w2.data.repository.account.AccountRepository
+import com.homanad.android.w2.data.repository.account.AccountRepositoryImpl
+import com.homanad.android.w2.data.repository.account.datasource.AccountDataSource
+import com.homanad.android.w2.data.repository.account.datasource.AccountDataSourceImpl
 
 object Injector {
 
@@ -19,22 +19,22 @@ object Injector {
     }
 
     @Synchronized
-    fun provideWalletDataSource(context: Context): WalletDataSource {
-        return WalletDataSourceImpl(provideWDatabase(context))
+    fun provideWalletDataSource(context: Context): AccountDataSource {
+        return AccountDataSourceImpl(provideWDatabase(context))
     }
 
     @Synchronized
-    fun provideWalletRepository(context: Context): WalletRepository {
-        return WalletRepositoryImpl(provideWalletDataSource(context))
+    fun provideWalletRepository(context: Context): AccountRepository {
+        return AccountRepositoryImpl(provideWalletDataSource(context))
     }
 
     @Synchronized
-    fun provideMinusDataSource(context: Context): MinusDataSource {
-        return MinusDataSourceImpl(provideWDatabase(context))
+    fun provideMinusDataSource(context: Context): SpendingDataSource {
+        return SpendingDataSourceImpl(provideWDatabase(context))
     }
 
     @Synchronized
-    fun provideMinusRepository(context: Context): MinusRepository {
-        return MinusRepositoryImpl(provideMinusDataSource(context))
+    fun provideMinusRepository(context: Context): SpendingRepository {
+        return SpendingRepositoryImpl(provideMinusDataSource(context))
     }
 }
