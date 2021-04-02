@@ -2,8 +2,9 @@ package com.homanad.android.w2.data.repository.spending.datasource
 
 import com.homanad.android.w2.data.db.WDatabase
 import com.homanad.android.w2.data.model.Spending
+import javax.inject.Inject
 
-class SpendingDataSourceImpl(wDatabase: WDatabase) : SpendingDataSource {
+class SpendingDataSourceImpl @Inject constructor(wDatabase: WDatabase) : SpendingDataSource {
 
     private val minusDao = wDatabase.spendingDao
 

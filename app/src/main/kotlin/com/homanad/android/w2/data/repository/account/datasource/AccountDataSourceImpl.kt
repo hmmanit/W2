@@ -2,8 +2,9 @@ package com.homanad.android.w2.data.repository.account.datasource
 
 import com.homanad.android.w2.data.db.WDatabase
 import com.homanad.android.w2.data.model.Account
+import javax.inject.Inject
 
-class AccountDataSourceImpl(wDatabase: WDatabase) : AccountDataSource {
+class AccountDataSourceImpl @Inject constructor(wDatabase: WDatabase) : AccountDataSource {
 
     private val walletDao = wDatabase.accountDao
 

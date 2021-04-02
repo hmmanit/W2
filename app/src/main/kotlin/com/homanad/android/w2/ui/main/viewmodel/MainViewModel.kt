@@ -3,10 +3,11 @@ package com.homanad.android.w2.ui.main.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.homanad.android.common.components.vm.BaseViewModel
 import com.homanad.android.w2.data.model.Account
-import com.homanad.android.w2.data.repository.spending.SpendingRepository
 import com.homanad.android.w2.data.repository.account.AccountRepository
+import com.homanad.android.w2.data.repository.spending.SpendingRepository
 import com.homanad.android.w2.ui.main.intent.MainIntent
 import com.homanad.android.w2.ui.main.viewstate.MainState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +15,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 @ExperimentalCoroutinesApi
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val spendingRepository: SpendingRepository
 ) : BaseViewModel() {
