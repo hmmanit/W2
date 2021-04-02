@@ -19,4 +19,10 @@ object DBModule {
         WDatabase::class.java,
         WDatabase::class.java.simpleName
     ).build()
+
+    @Provides
+    fun provideSpendingDao(wDatabase: WDatabase) = wDatabase.spendingDao
+
+    @Provides
+    fun provideAccountDao(wDatabase: WDatabase) = wDatabase.accountDao
 }

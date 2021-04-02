@@ -9,5 +9,5 @@ import com.homanad.android.w2.data.model.Account
 abstract class AccountDao : BaseDao<Account> {
 
     @Query("SELECT * FROM Account")
-    abstract suspend fun getAll(): List<Account>
+    abstract suspend fun getAllAccounts(): List<Account>
 }

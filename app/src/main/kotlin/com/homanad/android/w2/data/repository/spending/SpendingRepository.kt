@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 class SpendingRepository @Inject constructor(private val spendingDataSource: SpendingDataSource) {
 
-    suspend fun createMinus(spending: Spending): Long = spendingDataSource.createMinus(spending)
+    suspend fun createMinus(spending: Spending): Long = spendingDataSource.createSpending(spending)
 
-    suspend fun deleteMinus(spending: Spending): Int = spendingDataSource.deleteMinus(spending)
+    suspend fun deleteMinus(spending: Spending): Int = spendingDataSource.deleteSpending(spending)
 
-    suspend fun updateMinus(spending: Spending): Int = spendingDataSource.updateMinus(spending)
+    suspend fun updateMinus(spending: Spending): Int = spendingDataSource.updateSpending(spending)
 
-    suspend fun getAll(): List<Spending> = spendingDataSource.getAll()
+    suspend fun getAll(): List<Spending> = spendingDataSource.getAllSpending()
 }

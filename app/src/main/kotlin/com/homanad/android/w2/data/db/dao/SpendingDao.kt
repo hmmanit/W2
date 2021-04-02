@@ -9,5 +9,5 @@ import com.homanad.android.w2.data.model.Spending
 abstract class SpendingDao : BaseDao<Spending> {
 
     @Query("SELECT * FROM Spending")
-    abstract suspend fun getAll(): List<Spending>
+    abstract suspend fun getAllSpending(): List<Spending>
 }

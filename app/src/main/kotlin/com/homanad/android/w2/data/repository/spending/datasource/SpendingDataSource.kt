@@ -4,11 +4,11 @@ import com.homanad.android.w2.data.model.Spending
 
 
 interface SpendingDataSource {
-    suspend fun createMinus(minusEntity: Spending): Long
+    suspend fun createSpending(spending: Spending): Long
 
-    suspend fun deleteMinus(minusEntity: Spending): Int
+    suspend fun deleteSpending(spending: Spending): Int
 
-    suspend fun updateMinus(minusEntity: Spending): Int
+    suspend fun updateSpending(spending: Spending): Int
 
-    suspend fun getAll(): List<Spending>
+    suspend fun getAllSpending(): List<Spending>
 }

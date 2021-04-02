@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 class AccountRepository @Inject constructor(private val accountDataSource: AccountDataSource) {
 
-    suspend fun createWallet(account: Account): Long = accountDataSource.createWallet(account)
+    suspend fun createWallet(account: Account): Long = accountDataSource.createAccount(account)
 
-    suspend fun deleteWallet(account: Account): Int = accountDataSource.deleteWallet(account)
+    suspend fun deleteWallet(account: Account): Int = accountDataSource.deleteAccount(account)
 
-    suspend fun updateWallet(account: Account): Int = accountDataSource.updateWallet(account)
+    suspend fun updateWallet(account: Account): Int = accountDataSource.updateAccount(account)
 
-    suspend fun getAll(): List<Account> = accountDataSource.getAll()
+    suspend fun getAll(): List<Account> = accountDataSource.getAllAccounts()
 }

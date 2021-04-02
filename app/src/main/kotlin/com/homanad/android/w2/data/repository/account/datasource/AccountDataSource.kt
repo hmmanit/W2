@@ -3,11 +3,11 @@ package com.homanad.android.w2.data.repository.account.datasource
 import com.homanad.android.w2.data.model.Account
 
 interface AccountDataSource {
-    suspend fun createWallet(walletEntity: Account): Long
+    suspend fun createAccount(account: Account): Long
 
-    suspend fun deleteWallet(walletEntity: Account): Int
+    suspend fun deleteAccount(account: Account): Int
 
-    suspend fun updateWallet(walletEntity: Account): Int
+    suspend fun updateAccount(account: Account): Int
 
-    suspend fun getAll(): List<Account>
+    suspend fun getAllAccounts(): List<Account>
 }
