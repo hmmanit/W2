@@ -81,4 +81,6 @@ dependencies {
 
     implementation android_common
     implementation auto_dimensions
+
+    implementation curved_bottom_navigation
 }

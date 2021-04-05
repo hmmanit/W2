@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">W2</string>
-
-    <string name="FAB_CREATE_DESCRIPTION">FAB_CREATE_DESCRIPTION</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
