@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         val menuItems = arrayOf(
             CbnMenuItem(
-                R.drawable.ic_home,
-                R.drawable.avd_home,
+                R.drawable.ic_home2,
+                R.drawable.avd_home2,
                 R.id.homeFragment
             ),
             CbnMenuItem(
