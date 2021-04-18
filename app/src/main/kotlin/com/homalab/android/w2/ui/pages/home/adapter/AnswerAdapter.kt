@@ -10,7 +10,9 @@ import com.homalab.android.w2.R
 import com.homalab.android.w2.ui.pages.home.type.AnswerType
 import com.homanad.android.common.extensions.resource.asString
 
-class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ItemHolder>() {
+class AnswerAdapter(
+    private val onClick: (view: View, answerType: AnswerType) -> Unit
+) : RecyclerView.Adapter<AnswerAdapter.ItemHolder>() {
 
     private val answerTypes = listOf(
         AnswerType.PAY,
@@ -23,6 +25,8 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ItemHolder>() {
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val context = view.context
+
+        private val root = view.rootView
         private val icon = view.findViewById<ImageView>(R.id.icon)
         private val textTitle = view.findViewById<TextView>(R.id.text_title)
         private val textDescription = view.findViewById<TextView>(R.id.text_description)
@@ -31,6 +35,10 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.ItemHolder>() {
             icon.setImageResource(answerType.icon)
             textTitle.text = answerType.title.asString(context)
             textDescription.text = answerType.description.asString(context)
+
+            root.setOnClickListener {
+                onClick(it, answerType)
+            }
         }
     }
 

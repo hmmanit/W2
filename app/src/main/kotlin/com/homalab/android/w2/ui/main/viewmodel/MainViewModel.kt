@@ -2,6 +2,7 @@ package com.homalab.android.w2.ui.main.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.homalab.android.w2.data.model.Account
+import com.homalab.android.w2.data.model.Spending
 import com.homalab.android.w2.data.repository.account.AccountRepository
 import com.homalab.android.w2.data.repository.spending.SpendingRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent
@@ -42,6 +43,10 @@ class MainViewModel @Inject constructor(
                     is MainIntent.CreateWalletIntent -> createWallet(it.account)
                     is MainIntent.DeleteWalletIntent -> deleteWallet(it.account)
                     is MainIntent.UpdateWalletIntent -> updateWallet(it.account)
+
+                    is MainIntent.GetAllSpendingIntent -> {
+                    }
+                    is MainIntent.CreateSpendingIntent -> createSpending(it.spending)
                 }
             }
         }
@@ -51,7 +56,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                MainState.Wallets(accountRepository.getAll())
+                MainState.Accounts(accountRepository.getAll())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
@@ -87,6 +92,18 @@ class MainViewModel @Inject constructor(
             _state.value = MainState.Loading
             _state.value = try {
                 accountRepository.updateWallet(account)
+                MainState.Idle
+            } catch (e: Exception) {
+                MainState.Error(e.localizedMessage)
+            }
+        }
+    }
+
+    private fun createSpending(spending: Spending) {
+        viewModelScope.launch {
+            _state.value = MainState.Loading
+            _state.value = try {
+                spendingRepository.createMinus(spending)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)

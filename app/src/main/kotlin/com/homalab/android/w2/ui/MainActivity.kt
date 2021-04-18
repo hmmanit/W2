@@ -16,10 +16,12 @@ import com.homalab.android.w2.R
 import com.homalab.android.w2.databinding.ActivityMainBinding
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homanad.android.common.extensions.context.themeColor
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
