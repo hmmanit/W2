@@ -37,15 +37,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.accountFragment,
-                R.id.statisticFragment,
-                R.id.settingFragment
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.homeFragment,
+//                R.id.accountFragment,
+//                R.id.statisticFragment,
+//                R.id.settingFragment
+//            )
+//        )
+//        setupActionBarWithNavController(navController, appBarConfiguration)
         val menuItems = arrayOf(
             CbnMenuItem(
                 R.drawable.ic_home,
