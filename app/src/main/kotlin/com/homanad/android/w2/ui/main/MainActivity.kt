@@ -1,6 +1,7 @@
 package com.homanad.android.w2.ui.main
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.palette.graphics.Palette
 import com.homanad.android.common.extensions.context.themeColor
 import com.homanad.android.w2.R
 import com.homanad.android.w2.databinding.ActivityMainBinding
@@ -36,18 +38,24 @@ class MainActivity : AppCompatActivity() {
     private fun setStatusBarGradient(activity: Activity) {
         val window: Window = activity.window
 
-        val gradientDrawable = GradientDrawable()
-        val colors = intArrayOf(Color.BLACK, themeColor(R.attr.colorPrimaryDark))
-        gradientDrawable.colors = colors
-//        gradientDrawable.shape = GradientDrawable.RECTANGLE
-        gradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
-//        gradientDrawable.setStroke(strokeWidth, strokeColor)
-        gradientDrawable.gradientType = GradientDrawable.LINEAR_GRADIENT
+        val builder = Palette.Builder(BitmapFactory.decodeResource(resources, R.drawable.day1))
+        builder.generate {
+            it?.let {
+                val light = it.getLightMutedColor(themeColor(R.attr.colorPrimary))
+                val dark = it.getDarkVibrantColor(themeColor(R.attr.colorPrimaryDark))
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
-        window.setBackgroundDrawable(gradientDrawable)
+                val gradientDrawable = GradientDrawable()
+                val colors = intArrayOf(light, dark)
+                gradientDrawable.colors = colors
+                gradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
+                gradientDrawable.gradientType = GradientDrawable.LINEAR_GRADIENT
+
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = Color.TRANSPARENT
+                window.navigationBarColor = Color.TRANSPARENT
+                window.setBackgroundDrawable(gradientDrawable)
+            }
+        }
     }
 
     private fun observeData() {
