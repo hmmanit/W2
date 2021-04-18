@@ -82,12 +82,10 @@
             app:layout_constraintTop_toBottomOf="@id/recycler_view_answers" />
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/PenetrationCardView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/defaultMargin"
-            app:cardBackgroundColor="#4DFFFFFF"
-            app:cardCornerRadius="@dimen/defaultCornerRadius"
-            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/text_activity"
             app:layout_constraintStart_toStartOf="parent"
