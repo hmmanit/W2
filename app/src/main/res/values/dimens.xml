@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="smallMargin">@dimen/dimen_4adp</dimen>
+    <dimen name="defaultMargin">@dimen/dimen_8adp</dimen>
+    <dimen name="mediumMargin">@dimen/dimen_12adp</dimen>
+    <dimen name="largeMargin">@dimen/dimen_16adp</dimen>
+    <dimen name="xLargeMargin">@dimen/dimen_20adp</dimen>
+    <dimen name="xxLargeMargin">@dimen/dimen_24adp</dimen>
+    <dimen name="xxxLargeMargin">@dimen/dimen_28adp</dimen>
+    <dimen name="xxxxLargeMargin">@dimen/dimen_32adp</dimen>
+
+    <dimen name="smallIconSize">@dimen/dimen_16adp</dimen>
+    <dimen name="defaultIconSize">@dimen/dimen_24adp</dimen>
+    <dimen name="larIconSize">@dimen/dimen_32adp</dimen>
+
+</resources>
