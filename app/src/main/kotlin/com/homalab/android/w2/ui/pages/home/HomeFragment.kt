@@ -39,7 +39,9 @@ class HomeFragment : BaseFragment() {
                                     "a",
                                     "a",
                                     1111f,
-                                    1
+                                    1,
+                                    System.currentTimeMillis(),
+                                    System.currentTimeMillis()
                                 )
                             )
                         )

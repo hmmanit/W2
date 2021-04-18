@@ -103,7 +103,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                spendingRepository.createMinus(spending)
+                spendingRepository.createSpending(spending)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)

@@ -10,5 +10,7 @@ data class Spending(
     val title: String,
     val description: String,
     val amount: Float,
-    val walletId: Long //optional
+    val walletId: Long, //optional
+    val createdTime: Long,
+    val updatedTime: Long
 )
