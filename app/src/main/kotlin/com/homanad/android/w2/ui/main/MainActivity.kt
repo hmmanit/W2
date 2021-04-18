@@ -7,9 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.homanad.android.common.components.ui.BaseActivity
-import com.homanad.android.common.components.ui.BaseActivityWithBinding
-import com.homanad.android.common.components.ui.binding.ContentViewBindingDelegate
 import com.homanad.android.w2.R
 import com.homanad.android.w2.databinding.ActivityMainBinding
 import com.homanad.android.w2.ui.main.viewmodel.MainViewModel
@@ -51,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         val menuItems = arrayOf(
             CbnMenuItem(
-                R.drawable.ic_home2,
-                R.drawable.avd_home2,
+                R.drawable.ic_home,
+                R.drawable.avd_home,
                 R.id.homeFragment
             ),
             CbnMenuItem(
