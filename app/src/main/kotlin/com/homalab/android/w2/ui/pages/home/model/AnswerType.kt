@@ -1,4 +1,4 @@
-package com.homalab.android.w2.ui.pages.home.type
+package com.homalab.android.w2.ui.pages.home.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

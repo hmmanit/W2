@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
-import com.homalab.android.w2.ui.pages.home.type.AnswerType
+import com.homalab.android.w2.ui.pages.home.model.AnswerType
 import com.homanad.android.common.extensions.resource.asString
 
 class AnswerAdapter(

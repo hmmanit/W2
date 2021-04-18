@@ -13,7 +13,7 @@ import com.homalab.android.w2.databinding.FragmentHomeBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.pages.home.adapter.AnswerAdapter
-import com.homalab.android.w2.ui.pages.home.type.AnswerType
+import com.homalab.android.w2.ui.pages.home.model.AnswerType
 import com.homanad.android.common.components.recyclerView.decoration.SpaceItemDecoration
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
