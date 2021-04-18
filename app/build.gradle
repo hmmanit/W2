@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.homanad.android.w2"
+        applicationId "com.homalab.android.w2"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
