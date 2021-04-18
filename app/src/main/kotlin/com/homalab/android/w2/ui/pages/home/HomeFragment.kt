@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.homalab.android.w2.R
 import com.homalab.android.w2.databinding.FragmentHomeBinding
+import com.homalab.android.w2.ui.pages.home.adapter.AnswerAdapter
+import com.homanad.android.common.components.recyclerView.decoration.SpaceItemDecoration
 import com.homanad.android.common.components.ui.BaseFragment
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
+
+    private val answerAdapter by lazy {
+        AnswerAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +40,12 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun updateUI() {
-
+        with(binding) {
+            recyclerViewAnswers.run {
+                adapter = AnswerAdapter()
+                addItemDecoration(SpaceItemDecoration(8))
+            }
+        }
     }
 
     companion object {

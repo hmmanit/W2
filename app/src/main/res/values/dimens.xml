@@ -14,4 +14,10 @@
     <dimen name="defaultIconSize">@dimen/dimen_24adp</dimen>
     <dimen name="larIconSize">@dimen/dimen_32adp</dimen>
 
+    <dimen name="defaultCornerRadius">@dimen/dimen_8adp</dimen>
+
+
+    <!-- value -->
+    <dimen name="itemAnswerMaxWidth">@dimen/dimen_120adp</dimen>
+
 </resources>
