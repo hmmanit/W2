@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.pages.home.HomeFragment">
 
-        
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -83,4 +83,6 @@ dependencies {
     implementation auto_dimensions
 
     implementation curved_bottom_navigation
+
+    implementation palette
 }

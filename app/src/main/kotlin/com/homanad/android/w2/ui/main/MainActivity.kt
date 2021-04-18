@@ -1,17 +1,22 @@
 package com.homanad.android.w2.ui.main
 
+import android.app.Activity
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.homanad.android.common.extensions.context.themeColor
 import com.homanad.android.w2.R
 import com.homanad.android.w2.databinding.ActivityMainBinding
 import com.homanad.android.w2.ui.main.viewmodel.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem
+
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -22,9 +27,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setStatusBarGradient(this)
 
         observeData()
         updateUI()
+    }
+
+    private fun setStatusBarGradient(activity: Activity) {
+        val window: Window = activity.window
+
+        val gradientDrawable = GradientDrawable()
+        val colors = intArrayOf(Color.BLACK, themeColor(R.attr.colorPrimaryDark))
+        gradientDrawable.colors = colors
+//        gradientDrawable.shape = GradientDrawable.RECTANGLE
+        gradientDrawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
+//        gradientDrawable.setStroke(strokeWidth, strokeColor)
+        gradientDrawable.gradientType = GradientDrawable.LINEAR_GRADIENT
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        window.setBackgroundDrawable(gradientDrawable)
     }
 
     private fun observeData() {
