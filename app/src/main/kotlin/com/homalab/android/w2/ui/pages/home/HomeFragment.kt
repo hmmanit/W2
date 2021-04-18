@@ -7,17 +7,22 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.model.Spending
 import com.homalab.android.w2.databinding.FragmentHomeBinding
+import com.homalab.android.w2.mapper.convertToActivities
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
+import com.homalab.android.w2.ui.main.viewstate.MainState
+import com.homalab.android.w2.ui.pages.home.adapter.ActivityAdapter
 import com.homalab.android.w2.ui.pages.home.adapter.AnswerAdapter
 import com.homalab.android.w2.ui.pages.home.model.AnswerType
 import com.homanad.android.common.components.recyclerView.decoration.SpaceItemDecoration
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
@@ -51,6 +56,10 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private val activityAdapter by lazy {
+        ActivityAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -64,7 +73,17 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun observeData() {
-
+        with(mainViewModel) {
+            lifecycleScope.launch {
+                state.collect {
+                    when (it) {
+                        is MainState.SpendingList -> {
+                            activityAdapter.setActivities(it.spendingList.convertToActivities())
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun setupViewModel() {
@@ -76,6 +95,10 @@ class HomeFragment : BaseFragment() {
             recyclerViewAnswers.run {
                 adapter = answerAdapter
                 addItemDecoration(SpaceItemDecoration(8))
+            }
+            recyclerViewActivities.run {
+                adapter = activityAdapter
+                layoutManager = LinearLayoutManager(requireContext())
             }
         }
     }

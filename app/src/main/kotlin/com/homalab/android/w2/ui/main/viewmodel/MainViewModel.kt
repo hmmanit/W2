@@ -44,8 +44,7 @@ class MainViewModel @Inject constructor(
                     is MainIntent.DeleteWalletIntent -> deleteWallet(it.account)
                     is MainIntent.UpdateWalletIntent -> updateWallet(it.account)
 
-                    is MainIntent.GetAllSpendingIntent -> {
-                    }
+                    is MainIntent.GetAllSpendingIntent -> getAllSpending()
                     is MainIntent.CreateSpendingIntent -> createSpending(it.spending)
                 }
             }
@@ -93,6 +92,17 @@ class MainViewModel @Inject constructor(
             _state.value = try {
                 accountRepository.updateWallet(account)
                 MainState.Idle
+            } catch (e: Exception) {
+                MainState.Error(e.localizedMessage)
+            }
+        }
+    }
+
+    private fun getAllSpending() {
+        viewModelScope.launch {
+            _state.value = MainState.Loading
+            _state.value = try {
+                MainState.SpendingList(spendingRepository.getAll())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
