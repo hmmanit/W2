@@ -1,6 +1,7 @@
 package com.homalab.android.w2.ui.pages.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +79,7 @@ class HomeFragment : BaseFragment() {
                 state.collect {
                     when (it) {
                         is MainState.SpendingList -> {
+                            Log.d("aaaaaaaaaaaaaa", "here")
                             activityAdapter.setActivities(it.spendingList.convertToActivities())
                         }
                     }
@@ -87,7 +89,9 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun setupViewModel() {
-
+        lifecycleScope.launch {
+            mainViewModel.userIntent.send(MainIntent.GetAllSpendingIntent)
+        }
     }
 
     override fun updateUI() {

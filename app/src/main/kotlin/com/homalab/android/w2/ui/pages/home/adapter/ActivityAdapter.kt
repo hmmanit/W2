@@ -3,6 +3,7 @@ package com.homalab.android.w2.ui.pages.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -27,7 +28,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ItemHolder>() {
         private val context = view.context
         private val textDate = view.findViewById<TextView>(R.id.text_date)
         private val containerActivity =
-            view.findViewById<LinearLayoutCompat>(R.id.container_activity)
+            view.findViewById<LinearLayout>(R.id.container_activity)
 
         fun bind(activity: Activity) {
 
