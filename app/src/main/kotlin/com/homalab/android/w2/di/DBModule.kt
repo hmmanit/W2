@@ -25,4 +25,7 @@ object DBModule {
 
     @Provides
     fun provideAccountDao(wDatabase: WDatabase) = wDatabase.accountDao
+
+    @Provides
+    fun provideCategoryDao(wDatabase: WDatabase) = wDatabase.categoryDao
 }
