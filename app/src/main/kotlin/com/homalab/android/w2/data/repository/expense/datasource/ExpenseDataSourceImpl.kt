@@ -7,19 +7,19 @@ import javax.inject.Inject
 class ExpenseDataSourceImpl @Inject constructor(private val expenseDao: ExpenseDao) :
     ExpenseDataSource {
 
-    override suspend fun createSpending(expense: Expense): Long {
+    override suspend fun createExpense(expense: Expense): Long {
         return expenseDao.insert(expense)
     }
 
-    override suspend fun deleteSpending(expense: Expense): Int {
+    override suspend fun deleteExpense(expense: Expense): Int {
         return expenseDao.delete(expense)
     }
 
-    override suspend fun updateSpending(expense: Expense): Int {
+    override suspend fun updateExpense(expense: Expense): Int {
         return expenseDao.update(expense)
     }
 
-    override suspend fun getAllSpending(): List<Expense> {
+    override suspend fun getAllExpenses(): List<Expense> {
         return expenseDao.getAllSpending()
     }
 }

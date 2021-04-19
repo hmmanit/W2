@@ -6,14 +6,14 @@ import javax.inject.Inject
 
 class ExpenseRepository @Inject constructor(private val expenseDataSource: ExpenseDataSource) {
 
-    suspend fun createSpending(expense: Expense): Long =
-        expenseDataSource.createSpending(expense)
+    suspend fun createExpense(expense: Expense): Long =
+        expenseDataSource.createExpense(expense)
 
-    suspend fun deleteSpending(expense: Expense): Int =
-        expenseDataSource.deleteSpending(expense)
+    suspend fun deleteExpense(expense: Expense): Int =
+        expenseDataSource.deleteExpense(expense)
 
-    suspend fun updateSpending(expense: Expense): Int =
-        expenseDataSource.updateSpending(expense)
+    suspend fun updateExpense(expense: Expense): Int =
+        expenseDataSource.updateExpense(expense)
 
-    suspend fun getAll(): List<Expense> = expenseDataSource.getAllSpending()
+    suspend fun getAllExpenses(): List<Expense> = expenseDataSource.getAllExpenses()
 }
