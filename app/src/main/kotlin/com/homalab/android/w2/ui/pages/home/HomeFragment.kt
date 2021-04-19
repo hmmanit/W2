@@ -1,7 +1,6 @@
 package com.homalab.android.w2.ui.pages.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homalab.android.w2.R
-import com.homalab.android.w2.data.model.Spending
+import com.homalab.android.w2.data.model.Expense
 import com.homalab.android.w2.databinding.FragmentHomeBinding
 import com.homalab.android.w2.mapper.convertToActivities
 import com.homalab.android.w2.ui.main.intent.MainIntent
@@ -39,8 +38,8 @@ class HomeFragment : BaseFragment() {
                 when (answerType) {
                     AnswerType.PAY -> {
                         mainViewModel.userIntent.send(
-                            MainIntent.CreateSpendingIntent(
-                                Spending(
+                            MainIntent.CreateExpenseIntent(
+                                Expense(
                                     0,
                                     "b",
                                     "b",
@@ -52,7 +51,7 @@ class HomeFragment : BaseFragment() {
                             )
                         )
 
-                        mainViewModel.userIntent.send(MainIntent.GetAllSpendingIntent)
+                        mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
                     }
                 }
             }
@@ -80,8 +79,8 @@ class HomeFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.SpendingList -> {
-                            activityAdapter.setActivities(it.spendingList.convertToActivities())
+                        is MainState.Expenses -> {
+                            activityAdapter.setActivities(it.expenseList.convertToActivities())
                         }
                     }
                 }
@@ -91,7 +90,7 @@ class HomeFragment : BaseFragment() {
 
     override fun setupViewModel() {
         lifecycleScope.launch {
-            mainViewModel.userIntent.send(MainIntent.GetAllSpendingIntent)
+            mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
         }
     }
 

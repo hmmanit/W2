@@ -2,9 +2,9 @@ package com.homalab.android.w2.ui.main.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.homalab.android.w2.data.model.Account
-import com.homalab.android.w2.data.model.Spending
+import com.homalab.android.w2.data.model.Expense
 import com.homalab.android.w2.data.repository.account.AccountRepository
-import com.homalab.android.w2.data.repository.spending.SpendingRepository
+import com.homalab.android.w2.data.repository.expense.ExpenseRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homanad.android.common.components.vm.BaseViewModel
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val spendingRepository: SpendingRepository
+    private val expenseRepository: ExpenseRepository
 ) : BaseViewModel() {
 
     val userIntent = Channel<MainIntent>(Channel.UNLIMITED)
@@ -39,13 +39,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             userIntent.consumeAsFlow().collect {
                 when (it) {
-                    is MainIntent.GetAllWalletIntent -> getAll()
-                    is MainIntent.CreateWalletIntent -> createWallet(it.account)
-                    is MainIntent.DeleteWalletIntent -> deleteWallet(it.account)
-                    is MainIntent.UpdateWalletIntent -> updateWallet(it.account)
+                    is MainIntent.GetAllAccountsIntent -> getAll()
+                    is MainIntent.CreateAccountIntent -> createWallet(it.account)
+                    is MainIntent.DeleteAccountIntent -> deleteWallet(it.account)
+                    is MainIntent.UpdateAccountIntent -> updateWallet(it.account)
 
-                    is MainIntent.GetAllSpendingIntent -> getAllSpending()
-                    is MainIntent.CreateSpendingIntent -> createSpending(it.spending)
+                    is MainIntent.GetAllExpensesIntent -> getAllSpending()
+                    is MainIntent.CreateExpenseIntent -> createSpending(it.expense)
                 }
             }
         }
@@ -102,18 +102,18 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                MainState.SpendingList(spendingRepository.getAll())
+                MainState.Expenses(expenseRepository.getAll())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
         }
     }
 
-    private fun createSpending(spending: Spending) {
+    private fun createSpending(expense: Expense) {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                spendingRepository.createSpending(spending)
+                expenseRepository.createSpending(expense)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)

@@ -21,7 +21,7 @@ object DBModule {
     ).build()
 
     @Provides
-    fun provideSpendingDao(wDatabase: WDatabase) = wDatabase.spendingDao
+    fun provideExpenseDao(wDatabase: WDatabase) = wDatabase.expenseDao
 
     @Provides
     fun provideAccountDao(wDatabase: WDatabase) = wDatabase.accountDao

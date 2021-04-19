@@ -1,10 +1,10 @@
 package com.homalab.android.w2.mapper
 
 import com.homalab.android.w2.common.util.toDateString
-import com.homalab.android.w2.data.model.Spending
+import com.homalab.android.w2.data.model.Expense
 import com.homalab.android.w2.ui.pages.home.model.Activity
 
-fun List<Spending>.convertToActivities(): List<Activity> {
+fun List<Expense>.convertToActivities(): List<Activity> {
     val pattern = "yyyy-MM-dd"
 
     val activities = getEmptyActivities(pattern)
@@ -12,7 +12,7 @@ fun List<Spending>.convertToActivities(): List<Activity> {
     forEach {
         activities.forEach { activity ->
             if (activity.date == it.createdTime.toDateString(pattern)) {
-                activity.spending.add(it)
+                activity.expense.add(it)
             }
         }
     }
@@ -30,7 +30,7 @@ fun List<Spending>.convertToActivities(): List<Activity> {
 //    return dates.toList()
 //}
 
-fun List<Spending>.getEmptyActivities(pattern: String): List<Activity> {
+fun List<Expense>.getEmptyActivities(pattern: String): List<Activity> {
     val activities = mutableListOf<Activity>()
     val dates = mutableSetOf<String>()
 

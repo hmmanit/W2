@@ -33,7 +33,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ItemHolder>() {
 
             textDate.text = activity.date
 
-            activity.spending.forEach {
+            activity.expense.forEach {
                 val view = LayoutInflater.from(context)
                     .inflate(R.layout.item_activity_row, containerActivity, false)
 
