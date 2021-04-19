@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.model.Expense
@@ -34,25 +36,9 @@ class HomeFragment : BaseFragment() {
 
     private val answerAdapter by lazy {
         AnswerAdapter { view, answerType ->
-            lifecycleScope.launch {
-                when (answerType) {
-                    AnswerType.PAY -> {
-                        mainViewModel.userIntent.send(
-                            MainIntent.CreateExpenseIntent(
-                                Expense(
-                                    0,
-                                    "b",
-                                    "b",
-                                    1111f,
-                                    1,
-                                    System.currentTimeMillis(),
-                                    System.currentTimeMillis()
-                                )
-                            )
-                        )
-
-                        mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
-                    }
+            when (answerType) {
+                AnswerType.PAY -> {
+                    navigateTo(HomeFragmentDirections.actionHomeFragmentToLogFragment())
                 }
             }
         }
@@ -104,6 +90,31 @@ class HomeFragment : BaseFragment() {
                 adapter = activityAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
+        }
+    }
+
+    private fun navigateTo(direction: NavDirections) {
+        findNavController().navigate(direction)
+    }
+
+    //TODO testing
+    private fun test() {
+        lifecycleScope.launch {
+            mainViewModel.userIntent.send(
+                MainIntent.CreateExpenseIntent(
+                    Expense(
+                        0,
+                        "b",
+                        "b",
+                        1111f,
+                        1,
+                        System.currentTimeMillis(),
+                        System.currentTimeMillis()
+                    )
+                )
+            )
+
+            mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
         }
     }
 

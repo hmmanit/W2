@@ -19,7 +19,7 @@ ext {
 
     def lottie_version = '3.6.0'
 
-    def navigation_version = '2.3.1'
+    def navigation_version = '2.3.5'
 
     def auto_dimensions_version = '1.0.4'
 
