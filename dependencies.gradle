@@ -37,6 +37,8 @@ ext {
 
     def palette_version = '1.0.0'
 
+    def moshi_version = '1.12.0'
+
     rxAndroid2 = "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     rxJava2 = "io.reactivex.rxjava2:rxjava:$rxjava_version"
 
@@ -102,4 +104,7 @@ ext {
     curved_bottom_navigation = "np.com.susanthapa.curved_bottom_navigation:curved_bottom_navigation:0.6.3"
 
     palette = "androidx.palette:palette:$palette_version"
+
+    moshi = "com.squareup.moshi:moshi:$moshi_version"
+    moshi_compiler = "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 }

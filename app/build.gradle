@@ -87,4 +87,6 @@ dependencies {
 
     implementation navigation_ktx
     implementation navigation_ui_ktx
+    implementation moshi
+    kapt moshi_compiler
 }
