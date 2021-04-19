@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
@@ -36,7 +35,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ItemHolder>() {
 
             activity.spending.forEach {
                 val view = LayoutInflater.from(context)
-                    .inflate(R.layout.row_activity, containerActivity, false)
+                    .inflate(R.layout.item_activity_row, containerActivity, false)
 
                 val textTitle = view.findViewById<TextView>(R.id.text_title)
                 val textAmount = view.findViewById<TextView>(R.id.text_amount)

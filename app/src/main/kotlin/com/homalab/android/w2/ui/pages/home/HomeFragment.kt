@@ -42,8 +42,8 @@ class HomeFragment : BaseFragment() {
                             MainIntent.CreateSpendingIntent(
                                 Spending(
                                     0,
-                                    "a",
-                                    "a",
+                                    "b",
+                                    "b",
                                     1111f,
                                     1,
                                     System.currentTimeMillis(),
@@ -51,6 +51,8 @@ class HomeFragment : BaseFragment() {
                                 )
                             )
                         )
+
+                        mainViewModel.userIntent.send(MainIntent.GetAllSpendingIntent)
                     }
                 }
             }
@@ -79,7 +81,6 @@ class HomeFragment : BaseFragment() {
                 state.collect {
                     when (it) {
                         is MainState.SpendingList -> {
-                            Log.d("aaaaaaaaaaaaaa", "here")
                             activityAdapter.setActivities(it.spendingList.convertToActivities())
                         }
                     }
