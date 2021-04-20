@@ -37,7 +37,7 @@ class HomeFragment : BaseFragment() {
     private val answerAdapter by lazy {
         AnswerAdapter { view, answerType ->
             when (answerType) {
-                AnswerType.PAY -> {
+                AnswerType.EXPENSE -> {
                     navigateTo(HomeFragmentDirections.actionHomeFragmentToLogFragment())
                 }
             }

@@ -15,9 +15,9 @@ class AnswerAdapter(
 ) : RecyclerView.Adapter<AnswerAdapter.ItemHolder>() {
 
     private val answerTypes = listOf(
-        AnswerType.PAY,
-        AnswerType.TEST1,
-        AnswerType.TEST2,
+        AnswerType.EXPENSE,
+        AnswerType.INCOME,
+        AnswerType.NEW_ACCOUNT,
         AnswerType.TEST3,
         AnswerType.TEST4
     )
