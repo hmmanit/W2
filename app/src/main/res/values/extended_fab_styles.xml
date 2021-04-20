@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ExtendedFabStyle" parent="@style/Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="iconTint">?attr/colorOnSecondary</item>
+    </style>
+
+</resources>

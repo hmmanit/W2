@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.homalab.android.w2.R
 import com.homalab.android.w2.databinding.FragmentCategoryBinding
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
+import com.homalab.android.w2.ui.pages.setting.features.category.dialog.CoeCategoryDialog
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +34,11 @@ class CategoryFragment : BaseFragment() {
     }
 
     override fun updateUI() {
-
+        with(binding) {
+            fabCreate.setOnClickListener {
+                CoeCategoryDialog.show(requireActivity())
+            }
+        }
     }
 
     override fun onCreateView(

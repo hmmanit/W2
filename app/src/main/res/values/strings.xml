@@ -18,4 +18,5 @@
     <string name="security">Security</string>
     <string name="currency">Currency</string>
     <string name="backup_restore">Backup &amp; Restore</string>
+    <string name="create">Create</string>
 </resources>
