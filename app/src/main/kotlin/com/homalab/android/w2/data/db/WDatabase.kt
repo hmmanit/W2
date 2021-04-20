@@ -7,9 +7,9 @@ import com.homalab.android.w2.data.db.converter.CategoryConverter
 import com.homalab.android.w2.data.db.dao.AccountDao
 import com.homalab.android.w2.data.db.dao.CategoryDao
 import com.homalab.android.w2.data.db.dao.ExpenseDao
-import com.homalab.android.w2.data.model.Account
-import com.homalab.android.w2.data.model.Category
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Account
+import com.homalab.android.w2.data.entity.Category
+import com.homalab.android.w2.data.entity.Expense
 
 @Database(entities = [Expense::class, Account::class, Category::class], version = 1)
 @TypeConverters(CategoryConverter::class)

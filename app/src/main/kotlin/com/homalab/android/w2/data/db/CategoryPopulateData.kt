@@ -1,6 +1,6 @@
 package com.homalab.android.w2.data.db
 
-import com.homalab.android.w2.data.model.Category
+import com.homalab.android.w2.data.entity.Category
 
 //Food
 val foodSubCategories = listOf(

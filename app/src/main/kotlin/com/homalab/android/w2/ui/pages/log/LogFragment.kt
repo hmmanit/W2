@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.homalab.android.w2.R
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentLogBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel

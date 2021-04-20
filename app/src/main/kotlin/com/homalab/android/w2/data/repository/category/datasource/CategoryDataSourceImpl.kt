@@ -1,7 +1,7 @@
 package com.homalab.android.w2.data.repository.category.datasource
 
 import com.homalab.android.w2.data.db.dao.CategoryDao
-import com.homalab.android.w2.data.model.Category
+import com.homalab.android.w2.data.entity.Category
 import javax.inject.Inject
 
 class CategoryDataSourceImpl

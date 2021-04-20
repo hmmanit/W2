@@ -1,7 +1,7 @@
 package com.homalab.android.w2.data.repository.account.datasource
 
 import com.homalab.android.w2.data.db.dao.AccountDao
-import com.homalab.android.w2.data.model.Account
+import com.homalab.android.w2.data.entity.Account
 import javax.inject.Inject
 
 class AccountDataSourceImpl @Inject constructor(private val accountDao: AccountDao) :

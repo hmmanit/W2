@@ -1,8 +1,8 @@
 package com.homalab.android.w2.ui.main.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.homalab.android.w2.data.model.Account
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Account
+import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.data.repository.account.AccountRepository
 import com.homalab.android.w2.data.repository.expense.ExpenseRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent

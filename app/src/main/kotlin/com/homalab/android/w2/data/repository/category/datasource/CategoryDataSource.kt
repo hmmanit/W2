@@ -1,6 +1,6 @@
 package com.homalab.android.w2.data.repository.category.datasource
 
-import com.homalab.android.w2.data.model.Category
+import com.homalab.android.w2.data.entity.Category
 
 interface CategoryDataSource {
     suspend fun createCategory(category: Category): Long

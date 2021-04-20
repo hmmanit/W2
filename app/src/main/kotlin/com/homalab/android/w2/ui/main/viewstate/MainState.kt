@@ -1,7 +1,7 @@
 package com.homalab.android.w2.ui.main.viewstate
 
-import com.homalab.android.w2.data.model.Account
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Account
+import com.homalab.android.w2.data.entity.Expense
 
 sealed class MainState {
     object Idle : MainState()

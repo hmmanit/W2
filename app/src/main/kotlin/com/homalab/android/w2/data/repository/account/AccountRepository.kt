@@ -1,6 +1,6 @@
 package com.homalab.android.w2.data.repository.account
 
-import com.homalab.android.w2.data.model.Account
+import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.repository.account.datasource.AccountDataSource
 import javax.inject.Inject
 

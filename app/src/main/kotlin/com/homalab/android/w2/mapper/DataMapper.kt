@@ -1,7 +1,7 @@
 package com.homalab.android.w2.mapper
 
 import com.homalab.android.w2.common.util.toDateString
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.ui.pages.home.model.Activity
 
 fun List<Expense>.convertToActivities(): List<Activity> {

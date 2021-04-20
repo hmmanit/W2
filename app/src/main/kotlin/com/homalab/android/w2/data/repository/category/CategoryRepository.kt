@@ -1,6 +1,6 @@
 package com.homalab.android.w2.data.repository.category
 
-import com.homalab.android.w2.data.model.Category
+import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.repository.category.datasource.CategoryDataSource
 import javax.inject.Inject
 

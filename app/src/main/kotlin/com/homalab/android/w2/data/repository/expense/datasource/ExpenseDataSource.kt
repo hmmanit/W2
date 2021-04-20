@@ -1,6 +1,6 @@
 package com.homalab.android.w2.data.repository.expense.datasource
 
-import com.homalab.android.w2.data.model.Expense
+import com.homalab.android.w2.data.entity.Expense
 
 interface ExpenseDataSource {
     suspend fun createExpense(expense: Expense): Long
