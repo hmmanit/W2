@@ -5,8 +5,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.homalab.android.w2.data.db.WDatabase
-import com.homalab.android.w2.data.db.categories
+import com.homalab.android.w2.data.db.incomeCategories
 import com.homalab.android.w2.data.db.dao.CategoryDao
+import com.homalab.android.w2.data.db.expenseCategories
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +32,8 @@ object DBModule {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 CoroutineScope(Dispatchers.IO).launch {
-                    categoryDaoProvider.get().insert(categories)
+                    categoryDaoProvider.get().insert(expenseCategories)
+                    categoryDaoProvider.get().insert(incomeCategories)
                 }
             }
         })
