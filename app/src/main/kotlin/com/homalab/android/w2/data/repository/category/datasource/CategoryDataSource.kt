@@ -9,5 +9,5 @@ interface CategoryDataSource {
 
     suspend fun updateCategory(category: Category): Int
 
-    suspend fun getAllCategories(): List<Category>
+    suspend fun getAllCategories(type: Int): List<Category>
 }

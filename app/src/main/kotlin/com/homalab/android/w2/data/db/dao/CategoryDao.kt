@@ -8,6 +8,6 @@ import com.homalab.android.w2.data.entity.Category
 @Dao
 abstract class CategoryDao : BaseDao<Category> {
 
-    @Query("SELECT * FROM Category")
-    abstract suspend fun getAllCategories(): List<Category>
+    @Query("SELECT * FROM Category WHERE type = :type")
+    abstract suspend fun getAllCategories(type: Int): List<Category>
 }

@@ -19,7 +19,7 @@ class CategoryDataSourceImpl
         return categoryDao.update(category)
     }
 
-    override suspend fun getAllCategories(): List<Category> {
-        return categoryDao.getAllCategories()
+    override suspend fun getAllCategories(type: Int): List<Category> {
+        return categoryDao.getAllCategories(type)
     }
 }

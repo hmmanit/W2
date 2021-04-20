@@ -6,14 +6,14 @@ import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(private val categoryDataSource: CategoryDataSource) {
 
-    suspend fun createSpending(category: Category): Long =
+    suspend fun createCategory(category: Category): Long =
         categoryDataSource.createCategory(category)
 
-    suspend fun deleteSpending(category: Category): Int =
+    suspend fun deleteCategory(category: Category): Int =
         categoryDataSource.deleteCategory(category)
 
-    suspend fun updateSpending(category: Category): Int =
+    suspend fun updateCategory(category: Category): Int =
         categoryDataSource.updateCategory(category)
 
-    suspend fun getAll(): List<Category> = categoryDataSource.getAllCategories()
+    suspend fun getAllCategories(type: Int): List<Category> = categoryDataSource.getAllCategories(type)
 }
