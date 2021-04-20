@@ -43,6 +43,9 @@ class LogFragment : BaseFragment() {
                 test()
                 findNavController().navigateUp()
             }
+            header.buttonBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 
