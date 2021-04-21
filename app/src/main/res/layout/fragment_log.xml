@@ -156,8 +156,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
-            android:id="@+id/bottom_sheet_selector"
-            layout="@layout/bottom_sheet_selector" />
+            android:id="@+id/bottom_sheet_selection"
+            layout="@layout/bottom_sheet_selection" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

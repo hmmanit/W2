@@ -1,6 +1,7 @@
 package com.homalab.android.w2.ui.main.intent
 
 import com.homalab.android.w2.data.entity.Account
+import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
 
 sealed class MainIntent {
@@ -11,4 +12,6 @@ sealed class MainIntent {
 
     object GetAllExpensesIntent : MainIntent()
     data class CreateExpenseIntent(val expense: Expense) : MainIntent()
+
+    data class GetAllCategoriesIntent(val type: Category.Type) : MainIntent()
 }

@@ -8,15 +8,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.homalab.android.w2.R
+import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentLogBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
+import com.homalab.android.w2.ui.main.viewstate.MainState
+import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,15 +33,30 @@ class LogFragment : BaseFragment() {
 
     private lateinit var mBottomSheetSelector: BottomSheetBehavior<View>
 
+    private val selectionCategoryAdapter by lazy {
+        SelectionCategoryAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun observeData() {
-
+        with(mainViewModel) {
+            lifecycleScope.launch {
+                state.collect {
+                    when (it) {
+                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(it.categories)
+                    }
+                }
+            }
+        }
     }
 
     override fun setupViewModel() {
+        lifecycleScope.launch {
+            mainViewModel.userIntent.send(MainIntent.GetAllCategoriesIntent(Category.Type.EXPENSE)) //TODO test expense
+        }
 
     }
 
@@ -51,7 +71,10 @@ class LogFragment : BaseFragment() {
                 findNavController().navigateUp()
             }
             textAccount.setOnClickListener {
-                mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
+                showBottomSheetInMode(BottomSheetType.ACCOUNT)
+            }
+            textCategory.setOnClickListener {
+                showBottomSheetInMode(BottomSheetType.CATEGORY)
             }
         }
     }
@@ -86,7 +109,7 @@ class LogFragment : BaseFragment() {
     }
 
     private fun initBottomSheetSelector() {
-        val bottomSheetContentView = requireView().findViewById<View>(R.id.bottom_sheet_selector)
+        val bottomSheetContentView = requireView().findViewById<View>(R.id.bottom_sheet_selection)
         mBottomSheetSelector = BottomSheetBehavior.from(bottomSheetContentView).apply {
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onSlide(p0: View, p1: Float) {
@@ -142,10 +165,16 @@ class LogFragment : BaseFragment() {
     private fun showBottomSheetInMode(type: BottomSheetType) {
         when (type) {
             BottomSheetType.ACCOUNT -> {
+
             }
             BottomSheetType.CATEGORY -> {
+                binding.bottomSheetSelection.recyclerViewSelection.run {
+                    adapter = selectionCategoryAdapter
+                    layoutManager = LinearLayoutManager(requireContext())
+                }
             }
         }
+        mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     enum class BottomSheetType {

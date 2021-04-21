@@ -2,10 +2,12 @@ package com.homalab.android.w2.ui.main.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.homalab.android.w2.data.entity.Account
+import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.data.repository.account.AccountRepository
 import com.homalab.android.w2.data.repository.accountGroup.AccountGroupRepository
 import com.homalab.android.w2.data.repository.accounts.AccountsRepository
+import com.homalab.android.w2.data.repository.category.CategoryRepository
 import com.homalab.android.w2.data.repository.expense.ExpenseRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewstate.MainState
@@ -25,6 +27,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val expenseRepository: ExpenseRepository,
+    private val categoryRepository: CategoryRepository,
     private val accountGroupRepository: AccountGroupRepository,
     private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
@@ -50,6 +53,8 @@ class MainViewModel @Inject constructor(
 
                     is MainIntent.GetAllExpensesIntent -> getAllSpending()
                     is MainIntent.CreateExpenseIntent -> createSpending(it.expense)
+
+                    is MainIntent.GetAllCategoriesIntent -> getCategories(it.type)
                 }
             }
         }
@@ -125,4 +130,14 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun getCategories(type: Category.Type) {
+        viewModelScope.launch {
+            _state.value = MainState.Loading
+            _state.value = try {
+                MainState.CategoriesReturned(categoryRepository.getAllCategories(type.ordinal))
+            } catch (e: Exception) {
+                MainState.Error(e.localizedMessage)
+            }
+        }
+    }
 }
