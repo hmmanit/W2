@@ -35,7 +35,7 @@ class LogFragment : BaseFragment() {
     private lateinit var mBottomSheetSelector: BottomSheetBehavior<View>
 
     private val selectionCategoryAdapter by lazy {
-        SelectionCategoryAdapter()
+        SelectionCategoryAdapter(requireContext())
     }
 
     private val selectionAccountAdapter by lazy {

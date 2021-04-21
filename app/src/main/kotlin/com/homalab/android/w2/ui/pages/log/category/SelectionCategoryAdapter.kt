@@ -1,6 +1,6 @@
 package com.homalab.android.w2.ui.pages.log.category
 
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +9,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
+import com.homalab.android.w2.common.util.AnimUtil
 import com.homalab.android.w2.data.entity.Category
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
 
-class SelectionCategoryAdapter : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
+class SelectionCategoryAdapter(private val context: Context) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
     private var categories = listOf<Category>()
+
+    private val appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
@@ -26,13 +29,21 @@ class SelectionCategoryAdapter : RecyclerView.Adapter<SelectionCategoryAdapter.I
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private val root = view.rootView
         private val textName = view.findViewById<TextView>(R.id.text_name)
         private val iconSub = view.findViewById<ImageView>(R.id.icon_sub)
 
         fun bind(category: Category) {
+            root.startAnimation(appearanceAnimation)
 
             textName.text = category.name
-            if (category.subCategories.isNotEmpty()) iconSub.visible()
+            if (category.subCategories.isNotEmpty()) {
+                iconSub.visible()
+
+                root.setOnClickListener {
+                    setCategories(category.subCategories)
+                }
+            }
             else iconSub.invisible()
         }
     }
