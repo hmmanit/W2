@@ -10,19 +10,23 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.palette.graphics.Palette
 import com.homalab.android.w2.R
 import com.homalab.android.w2.databinding.ActivityMainBinding
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homanad.android.common.extensions.context.themeColor
+import com.homanad.android.common.extensions.view.gone
+import com.homanad.android.common.extensions.view.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -69,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNav() {
         val navController = findNavController(R.id.nav_host_fragment)
+        navController.addOnDestinationChangedListener(this)
 //        val appBarConfiguration = AppBarConfiguration(
 //            setOf(
 //                R.id.homeFragment,
@@ -102,5 +107,24 @@ class MainActivity : AppCompatActivity() {
         )
         binding.navView.setMenuItems(menuItems, 0)
         binding.navView.setupWithNavController(navController)
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        when (destination.id) {
+            R.id.homeFragment, R.id.accountFragment, R.id.statisticFragment, R.id.settingFragment -> showBottomNav()
+            else -> hideBottomNav()
+        }
+    }
+
+    private fun showBottomNav() {
+        binding.navView.visible()
+    }
+
+    private fun hideBottomNav() {
+        binding.navView.gone()
     }
 }

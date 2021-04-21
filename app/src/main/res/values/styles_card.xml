@@ -7,4 +7,17 @@
         <item name="cardCornerRadius">@dimen/defaultCornerRadius</item>
     </style>
 
+    <style name="TopRoundedCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearance">@style/TopRoundedAppearance</item>
+    </style>
+
+    <style name="TopRoundedAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/defaultCornerRadius</item>
+        <item name="cornerSizeTopRight">@dimen/defaultCornerRadius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
 </resources>
