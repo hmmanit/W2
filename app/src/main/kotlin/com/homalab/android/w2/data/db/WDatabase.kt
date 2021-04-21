@@ -12,7 +12,8 @@ import com.homalab.android.w2.data.entity.Expense
 
 @Database(
     entities = [Expense::class, Account::class, AccountGroup::class, Category::class],
-    version = 1
+    version = 1,
+    exportSchema = true
 )
 @TypeConverters(CategoryConverter::class)
 abstract class WDatabase : RoomDatabase() {

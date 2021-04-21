@@ -5,7 +5,7 @@ import androidx.room.Relation
 
 data class Accounts(
     @Embedded
-    val accountGroup: AccountGroup? = AccountGroup(),
+    val accountGroup: AccountGroup = AccountGroup(),
     @Relation(
         parentColumn = "id",
         entityColumn = "groupId"

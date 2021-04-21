@@ -8,7 +8,7 @@ data class AccountGroup(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String = "",
-    val description: String? = "", //TODO ??
+    val description: String = "", //TODO ??
     val createdTime: Long = 0,
     val updatedTime: Long = 0
 )

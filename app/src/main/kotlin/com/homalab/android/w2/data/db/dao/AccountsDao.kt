@@ -9,6 +9,6 @@ import com.homalab.android.w2.data.entity.Accounts
 interface AccountsDao {
 
     @Transaction
-    @Query("SELECT * FROM Account ")
+    @Query("SELECT * FROM AccountGroup")
     suspend fun getAccounts(): List<Accounts>
 }
