@@ -7,20 +7,22 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="nameaaaa"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:text="@string/note"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/icon_sub"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/smallIconSize"
+        android:layout_height="@dimen/smallIconSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_home" />
+        app:srcCompat="@drawable/ic_next" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

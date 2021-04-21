@@ -11,7 +11,8 @@
     <dimen name="xxxxLargeMargin">@dimen/dimen_32adp</dimen>
 
     <dimen name="smallIconSize">@dimen/dimen_16adp</dimen>
-    <dimen name="defaultIconSize">@dimen/dimen_24adp</dimen>
+    <dimen name="defaultIconSize">@dimen/dimen_20adp</dimen>
+    <dimen name="mediumIconSize">@dimen/dimen_24adp</dimen>
     <dimen name="larIconSize">@dimen/dimen_32adp</dimen>
 
     <dimen name="defaultCornerRadius">@dimen/dimen_8adp</dimen>

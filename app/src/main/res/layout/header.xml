@@ -10,8 +10,8 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button_back"
-            android:layout_width="@dimen/defaultIconSize"
-            android:layout_height="@dimen/defaultIconSize"
+            android:layout_width="@dimen/mediumIconSize"
+            android:layout_height="@dimen/mediumIconSize"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
