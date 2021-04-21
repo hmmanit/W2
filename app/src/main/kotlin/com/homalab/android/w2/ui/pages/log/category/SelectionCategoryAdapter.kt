@@ -15,15 +15,26 @@ import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
 
-class SelectionCategoryAdapter(private val context: Context) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
+class SelectionCategoryAdapter(private val context: Context) :
+    RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
     private var categories = listOf<Category>()
 
-    private val appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
+    private var appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
+
+    private var deepVal = 1
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
         this.categories = categories
+
+        val newDeepVal = if (categories.isNotEmpty()) categories[0].deepVal else 1
+        appearanceAnimation =
+            if (deepVal < newDeepVal) AnimUtil.getSlideInFromLeftAnimation(context)
+            else AnimUtil.getSlideInFromRightAnimation(context)
+
+        deepVal = newDeepVal
+
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
@@ -43,8 +54,7 @@ class SelectionCategoryAdapter(private val context: Context) : RecyclerView.Adap
                 root.setOnClickListener {
                     setCategories(category.subCategories)
                 }
-            }
-            else iconSub.invisible()
+            } else iconSub.invisible()
         }
     }
 
