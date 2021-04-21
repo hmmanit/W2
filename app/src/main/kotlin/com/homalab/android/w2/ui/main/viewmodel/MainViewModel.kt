@@ -4,6 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.data.repository.account.AccountRepository
+import com.homalab.android.w2.data.repository.accountGroup.AccountGroupRepository
+import com.homalab.android.w2.data.repository.accounts.AccountsRepository
 import com.homalab.android.w2.data.repository.expense.ExpenseRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewstate.MainState
@@ -22,7 +24,9 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val expenseRepository: ExpenseRepository
+    private val expenseRepository: ExpenseRepository,
+    private val accountGroupRepository: AccountGroupRepository,
+    private val accountsRepository: AccountsRepository
 ) : BaseViewModel() {
 
     val userIntent = Channel<MainIntent>(Channel.UNLIMITED)
@@ -55,7 +59,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                MainState.Accounts(accountRepository.getAll())
+                MainState.Accounts(accountRepository.getAllAccounts())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
@@ -66,7 +70,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                accountRepository.createWallet(account)
+                accountRepository.createAccount(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
@@ -78,7 +82,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                accountRepository.deleteWallet(account)
+                accountRepository.deleteAccount(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
@@ -90,7 +94,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                accountRepository.updateWallet(account)
+                accountRepository.updateAccount(account)
                 MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
