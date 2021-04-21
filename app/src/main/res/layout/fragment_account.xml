@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.pages.account.AccountFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-</FrameLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/defaultMargin"
+        tools:context=".ui.pages.account.AccountFragment">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_statistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/statistics"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:text="Income"
+            app:layout_constraintEnd_toStartOf="@id/text_expense"
+            app:layout_constraintStart_toStartOf="@id/text_statistics"
+            app:layout_constraintTop_toBottomOf="@id/text_statistics" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense"
+            app:layout_constraintEnd_toStartOf="@id/text_total"
+            app:layout_constraintStart_toEndOf="@id/text_income"
+            app:layout_constraintTop_toTopOf="@id/text_income" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_expense"
+            app:layout_constraintTop_toTopOf="@id/text_income" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_accounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/defaultMargin"
+            app:layout_constraintTop_toBottomOf="@id/text_income" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
