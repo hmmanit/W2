@@ -172,15 +172,21 @@ class LogFragment : BaseFragment() {
     private fun showBottomSheetInMode(type: BottomSheetType) {
         when (type) {
             BottomSheetType.ACCOUNT -> {
-                binding.bottomSheetSelection.recyclerViewSelection.run {
-                    adapter = selectionAccountAdapter
-                    layoutManager = LinearLayoutManager(requireContext())
+                binding.bottomSheetSelection.run {
+                    textTitle.text = type.name
+                    recyclerViewSelection.run {
+                        adapter = selectionAccountAdapter
+                        layoutManager = LinearLayoutManager(requireContext())
+                    }
                 }
             }
             BottomSheetType.CATEGORY -> {
-                binding.bottomSheetSelection.recyclerViewSelection.run {
-                    adapter = selectionCategoryAdapter
-                    layoutManager = LinearLayoutManager(requireContext())
+                binding.bottomSheetSelection.run {
+                    textTitle.text = type.name
+                    recyclerViewSelection.run {
+                        adapter = selectionCategoryAdapter
+                        layoutManager = LinearLayoutManager(requireContext())
+                    }
                 }
             }
         }
