@@ -50,7 +50,7 @@ class LogFragment : BaseFragment() {
             header.buttonBack.setOnClickListener {
                 findNavController().navigateUp()
             }
-            account.setOnClickListener {
+            textAccount.setOnClickListener {
                 mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }

@@ -58,6 +58,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/text_account"
+                style="@style/NonFocusableEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/defaultMargin"
@@ -76,6 +77,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/text_category"
+                style="@style/NonFocusableEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/defaultMargin"
@@ -94,6 +96,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/text_amount"
+                style="@style/NonFocusableEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/defaultMargin"
@@ -112,6 +115,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/text_note"
+                style="@style/NonFocusableEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/defaultMargin"
@@ -130,6 +134,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/text_description"
+                style="@style/NonFocusableEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/defaultMargin"
