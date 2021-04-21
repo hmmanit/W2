@@ -10,6 +10,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.homalab.android.w2.R
+import com.homalab.android.w2.common.util.Constants
 import com.homalab.android.w2.databinding.FragmentSettingBinding
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.pages.setting.adapter.SettingAdapter
@@ -52,8 +53,8 @@ class SettingFragment : BaseFragment() {
         with(binding) {
             recyclerViewSettings.run {
                 adapter = settingAdapter
-                layoutManager = GridLayoutManager(requireContext(), 3)
-                addItemDecoration(SpaceItemDecoration(8))
+                layoutManager = GridLayoutManager(requireContext(), Constants.SETTING_COLUMN_COUNT)
+                addItemDecoration(SpaceItemDecoration(Constants.SPACE_ITEM_DECORATION))
             }
         }
     }

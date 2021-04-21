@@ -11,6 +11,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homalab.android.w2.R
+import com.homalab.android.w2.common.util.Constants
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentHomeBinding
 import com.homalab.android.w2.mapper.convertToActivities
@@ -84,7 +85,7 @@ class HomeFragment : BaseFragment() {
         with(binding) {
             recyclerViewAnswers.run {
                 adapter = answerAdapter
-                addItemDecoration(SpaceItemDecoration(8))
+                addItemDecoration(SpaceItemDecoration(Constants.SPACE_ITEM_DECORATION))
             }
             recyclerViewActivities.run {
                 adapter = activityAdapter
