@@ -7,6 +7,6 @@ sealed class MainState {
     object Idle : MainState()
     object Loading : MainState()
     data class AccountsReturned(val accounts: List<Accounts>) : MainState()
-    data class Expenses(val expenseList: List<Expense>) : MainState()
+    data class ExpensesReturned(val expenseList: List<Expense>) : MainState()
     data class Error(val error: String?) : MainState()
 }

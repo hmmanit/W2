@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.Expenses -> {
+                        is MainState.ExpensesReturned -> {
                             activityAdapter.setActivities(it.expenseList.convertToActivities())
                         }
                     }
