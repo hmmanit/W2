@@ -17,6 +17,7 @@ import com.homalab.android.w2.databinding.FragmentLogBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.main.viewstate.MainState
+import com.homalab.android.w2.ui.pages.log.account.SelectionAccountAdapter
 import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +38,10 @@ class LogFragment : BaseFragment() {
         SelectionCategoryAdapter()
     }
 
+    private val selectionAccountAdapter by lazy {
+        SelectionAccountAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +52,7 @@ class LogFragment : BaseFragment() {
                 state.collect {
                     when (it) {
                         is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(it.categories)
+                        is MainState.AccountsReturned -> selectionAccountAdapter.setAccountsList(it.accounts)
                     }
                 }
             }
@@ -56,6 +62,7 @@ class LogFragment : BaseFragment() {
     override fun setupViewModel() {
         lifecycleScope.launch {
             mainViewModel.userIntent.send(MainIntent.GetAllCategoriesIntent(Category.Type.EXPENSE)) //TODO test expense
+            mainViewModel.userIntent.send(MainIntent.GetAllAccountsIntent)
         }
 
     }
@@ -165,7 +172,10 @@ class LogFragment : BaseFragment() {
     private fun showBottomSheetInMode(type: BottomSheetType) {
         when (type) {
             BottomSheetType.ACCOUNT -> {
-
+                binding.bottomSheetSelection.recyclerViewSelection.run {
+                    adapter = selectionAccountAdapter
+                    layoutManager = LinearLayoutManager(requireContext())
+                }
             }
             BottomSheetType.CATEGORY -> {
                 binding.bottomSheetSelection.recyclerViewSelection.run {
