@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentLogBinding
@@ -25,6 +26,8 @@ class LogFragment : BaseFragment() {
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var binding: FragmentLogBinding
 
+    private lateinit var mBottomSheetSelector: BottomSheetBehavior<View>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -38,6 +41,7 @@ class LogFragment : BaseFragment() {
     }
 
     override fun updateUI() {
+        initBottomSheetSelector()
         with(binding) {
             buttonSave.setOnClickListener {
                 test()
@@ -45,6 +49,9 @@ class LogFragment : BaseFragment() {
             }
             header.buttonBack.setOnClickListener {
                 findNavController().navigateUp()
+            }
+            account.setOnClickListener {
+                mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
     }
@@ -76,6 +83,60 @@ class LogFragment : BaseFragment() {
 
             mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
         }
+    }
+
+    private fun initBottomSheetSelector() {
+        val bottomSheetContentView = requireView().findViewById<View>(R.id.bottom_sheet_selector)
+        mBottomSheetSelector = BottomSheetBehavior.from(bottomSheetContentView).apply {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(p0: View, p1: Float) {
+                    when {
+                        p1 > 0.1F -> {
+//                            binding.bottomSheetPlayer.collapsedMode.gone()
+                        }
+                        else -> {
+//                            binding.bottomSheetPlayer.collapsedMode.visible()
+                        }
+                    }
+                }
+
+                override fun onStateChanged(p0: View, p1: Int) {
+                    when (p1) {
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                        }
+
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+//                            binding.bottomSheetPlayer.collapsedMode.gone()
+                        }
+
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+//                            binding.bottomSheetPlayer.collapsedMode.visible()
+                        }
+
+                        BottomSheetBehavior.STATE_DRAGGING -> {
+                        }
+
+                        BottomSheetBehavior.STATE_SETTLING -> {
+                        }
+
+                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                        }
+                    }
+                }
+            })
+        }
+
+//        binding.bottomSheetPlayer.apply {
+//            collapsedMode.setOnClickListener {
+//                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+//                it.gone()
+//                transitionPlayerToStart(true)
+//            }
+//            btnCollapse.setOnClickListener {
+//                bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+//                it.visible()
+//            }
+//        }
     }
 
     companion object {
