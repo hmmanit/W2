@@ -139,6 +139,19 @@ class LogFragment : BaseFragment() {
 //        }
     }
 
+    private fun showBottomSheetInMode(type: BottomSheetType) {
+        when (type) {
+            BottomSheetType.ACCOUNT -> {
+            }
+            BottomSheetType.CATEGORY -> {
+            }
+        }
+    }
+
+    enum class BottomSheetType {
+        ACCOUNT, CATEGORY
+    }
+
     companion object {
         @JvmStatic
         fun newInstance() = LogFragment()
