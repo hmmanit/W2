@@ -20,6 +20,8 @@ import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homalab.android.w2.ui.pages.log.account.SelectionAccountAdapter
 import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
 import com.homanad.android.common.components.ui.BaseFragment
+import com.homanad.android.common.extensions.view.gone
+import com.homanad.android.common.extensions.view.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -35,7 +37,14 @@ class LogFragment : BaseFragment() {
     private lateinit var mBottomSheetSelector: BottomSheetBehavior<View>
 
     private val selectionCategoryAdapter by lazy {
-        SelectionCategoryAdapter(requireContext())
+        SelectionCategoryAdapter(
+            requireContext(),
+            object : SelectionCategoryAdapter.CategorySelectionListener {
+                override fun onDeepChanged(isRoot: Boolean) {
+                    if (isRoot) binding.bottomSheetSelection.iconPrevious.gone()
+                    else binding.bottomSheetSelection.iconPrevious.visible()
+                }
+            })
     }
 
     private val selectionAccountAdapter by lazy {
@@ -82,6 +91,10 @@ class LogFragment : BaseFragment() {
             }
             textCategory.setOnClickListener {
                 showBottomSheetInMode(BottomSheetType.CATEGORY)
+            }
+
+            bottomSheetSelection.iconPrevious.setOnClickListener {
+                selectionCategoryAdapter.backToPrevious()
             }
         }
     }

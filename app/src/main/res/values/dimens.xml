@@ -10,6 +10,7 @@
     <dimen name="xxxLargeMargin">@dimen/dimen_28adp</dimen>
     <dimen name="xxxxLargeMargin">@dimen/dimen_32adp</dimen>
 
+    <dimen name="xSmallIconSize">@dimen/dimen_12adp</dimen>
     <dimen name="smallIconSize">@dimen/dimen_16adp</dimen>
     <dimen name="defaultIconSize">@dimen/dimen_20adp</dimen>
     <dimen name="mediumIconSize">@dimen/dimen_24adp</dimen>

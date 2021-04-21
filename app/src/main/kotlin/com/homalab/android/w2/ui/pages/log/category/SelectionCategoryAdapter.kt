@@ -15,27 +15,41 @@ import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
 
-class SelectionCategoryAdapter(private val context: Context) :
+class SelectionCategoryAdapter(
+    private val context: Context,
+    private val categorySelectionListener: CategorySelectionListener
+) :
     RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
+    companion object {
+        private const val ROOT_DEEP = 1
+    }
+
     private var categories = listOf<Category>()
+    private var prevCategories = listOf<Category>()
 
     private var appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
 
-    private var deepVal = 1
+    private var deepVal = ROOT_DEEP
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
+        prevCategories = this.categories
         this.categories = categories
 
-        val newDeepVal = if (categories.isNotEmpty()) categories[0].deepVal else 1
+        val newDeepVal = if (categories.isNotEmpty()) categories[0].deepVal else ROOT_DEEP
         appearanceAnimation =
-            if (deepVal < newDeepVal) AnimUtil.getSlideInFromLeftAnimation(context)
-            else AnimUtil.getSlideInFromRightAnimation(context)
+            if (deepVal < newDeepVal) AnimUtil.getSlideInFromRightAnimation(context)
+            else AnimUtil.getSlideInFromLeftAnimation(context)
 
         deepVal = newDeepVal
+        categorySelectionListener.onDeepChanged(deepVal == ROOT_DEEP)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
+    }
+
+    fun backToPrevious(){ //TODO temp solution
+        setCategories(prevCategories)
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -70,5 +84,9 @@ class SelectionCategoryAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.bind(categories[position])
+    }
+
+    interface CategorySelectionListener {
+        fun onDeepChanged(isRoot: Boolean)
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,32 +15,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/defaultMargin">
 
                 <View
+                    android:id="@+id/view"
                     android:layout_width="@dimen/bottomSheet_roundedLine_width"
                     android:layout_height="@dimen/bottomSheet_roundedLine_height"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bottom_sheet_rounded_line" />
+                    android:background="@drawable/bottom_sheet_rounded_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/icon_previous"
+                    android:layout_width="@dimen/xSmallIconSize"
+                    android:layout_height="@dimen/xSmallIconSize"
+                    android:layout_marginTop="@dimen/smallMargin"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view"
+                    app:srcCompat="@drawable/ic_previous"
+                    tools:visibility="visible" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallMargin"
                     android:layout_marginTop="@dimen/smallMargin"
-                    android:text="Title" />
+                    android:text="@string/category"
+                    app:layout_constraintStart_toEndOf="@id/icon_previous"
+                    app:layout_constraintTop_toTopOf="@id/view" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/defaultMargin" />
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    app:layout_constraintTop_toBottomOf="@id/text_title" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
