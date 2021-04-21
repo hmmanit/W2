@@ -20,5 +20,7 @@
 
     <!-- value -->
     <dimen name="itemAnswerMaxWidth">@dimen/dimen_120adp</dimen>
+    <dimen name="bottomSheet_roundedLine_width">@dimen/dimen_30adp</dimen>
+    <dimen name="bottomSheet_roundedLine_height">@dimen/dimen_2adp</dimen>
 
 </resources>
