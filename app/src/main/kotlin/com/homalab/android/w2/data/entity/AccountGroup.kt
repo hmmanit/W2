@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 @Entity
 data class AccountGroup(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    val name: String,
-    val createdTime: Long,
-    val updatedTime: Long
+    val id: Long = 0,
+    val name: String = "",
+    val description: String = "",
+    val createdTime: Long = 0,
+    val updatedTime: Long = 0
 )

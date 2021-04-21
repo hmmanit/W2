@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.homalab.android.w2.data.db.WDatabase
-import com.homalab.android.w2.data.db.incomeCategories
+import com.homalab.android.w2.data.db.*
+import com.homalab.android.w2.data.db.dao.AccountDao
+import com.homalab.android.w2.data.db.dao.AccountGroupDao
 import com.homalab.android.w2.data.db.dao.CategoryDao
-import com.homalab.android.w2.data.db.expenseCategories
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,12 @@ import javax.inject.Provider
 object DBModule {
 
     @Provides
-    fun provideWDatabase(@ApplicationContext context: Context, categoryDaoProvider: Provider<CategoryDao>) = Room.databaseBuilder(
+    fun provideWDatabase(
+        @ApplicationContext context: Context,
+        categoryDaoProvider: Provider<CategoryDao>,
+        accountGroupDaoProvider: Provider<AccountGroupDao>,
+        accountDaoProvider: Provider<AccountDao>
+    ) = Room.databaseBuilder(
         context,
         WDatabase::class.java,
         WDatabase::class.java.simpleName
@@ -34,6 +39,8 @@ object DBModule {
                 CoroutineScope(Dispatchers.IO).launch {
                     categoryDaoProvider.get().insert(expenseCategories)
                     categoryDaoProvider.get().insert(incomeCategories)
+                    accountGroupDaoProvider.get().insert(accountGroups)
+                    accountDaoProvider.get().insert(accounts)
                 }
             }
         })
@@ -47,4 +54,10 @@ object DBModule {
 
     @Provides
     fun provideCategoryDao(wDatabase: WDatabase) = wDatabase.categoryDao
+
+    @Provides
+    fun provideAccountGroupDao(wDatabase: WDatabase) = wDatabase.accountGroupDao
+
+    @Provides
+    fun provideAccountsDao(wDatabase: WDatabase) = wDatabase.accountsDao
 }
