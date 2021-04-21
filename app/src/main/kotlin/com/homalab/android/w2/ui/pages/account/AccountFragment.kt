@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homalab.android.w2.R
 import com.homalab.android.w2.common.util.Constants
 import com.homalab.android.w2.databinding.FragmentAccountBinding
+import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
+import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homalab.android.w2.ui.pages.account.adapter.AccountAdapter
 import com.homanad.android.common.components.recyclerView.decoration.SpaceItemDecoration
 import com.homanad.android.common.components.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -33,11 +38,21 @@ class AccountFragment : BaseFragment() {
     }
 
     override fun observeData() {
-
+        with(mainViewModel) {
+            lifecycleScope.launch {
+                state.collect {
+                    when (it) {
+                        is MainState.AccountsReturned -> accountAdapter.setAccounts(it.accounts)
+                    }
+                }
+            }
+        }
     }
 
     override fun setupViewModel() {
-
+        lifecycleScope.launch {
+            mainViewModel.userIntent.send(MainIntent.GetAllAccountsIntent)
+        }
     }
 
     override fun updateUI() {

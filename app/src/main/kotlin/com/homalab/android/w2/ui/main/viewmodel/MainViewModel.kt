@@ -59,7 +59,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
-                MainState.Accounts(accountRepository.getAllAccounts())
+                MainState.AccountsReturned(accountsRepository.getAccounts())
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }

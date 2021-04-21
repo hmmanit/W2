@@ -1,16 +1,25 @@
 package com.homalab.android.w2.ui.pages.account.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Accounts
+import com.homanad.android.common.components.recyclerView.util.DiffCallback
 
 class AccountAdapter : RecyclerView.Adapter<AccountAdapter.ItemHolder>() {
 
-    private val accounts = listOf<Accounts>()
+    private var accounts = listOf<Accounts>()
+
+    fun setAccounts(accounts: List<Accounts>){
+        val diffCallback = DiffCallback(this.accounts, accounts)
+        this.accounts = accounts
+        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
+    }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
