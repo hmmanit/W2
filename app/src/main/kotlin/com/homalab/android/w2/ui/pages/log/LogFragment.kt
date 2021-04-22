@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayoutMediator
 import com.homalab.android.w2.R
 import com.homalab.android.w2.common.util.AnimUtil
 import com.homalab.android.w2.data.entity.Category
@@ -20,6 +21,7 @@ import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homalab.android.w2.ui.pages.log.account.SelectionAccountAdapter
+import com.homalab.android.w2.ui.pages.log.account.SlidingAccountAdapter
 import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
 import com.homanad.android.common.components.ui.BaseFragment
 import com.homanad.android.common.extensions.view.gone
@@ -64,8 +66,11 @@ class LogFragment : BaseFragment() {
             })
     }
 
-    private val selectionAccountAdapter by lazy {
-        SelectionAccountAdapter()
+    //    private val selectionAccountAdapter by lazy {
+//        SelectionAccountAdapter()
+//    }
+    private val slidingAccountAdapter by lazy {
+        SlidingAccountAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,8 +82,24 @@ class LogFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(BottomSheetType.CATEGORY.name, it.categories)
-                        is MainState.AccountsReturned -> selectionAccountAdapter.setAccountsList(it.accounts)
+                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(
+                            BottomSheetType.CATEGORY.name,
+                            it.categories
+                        )
+                        is MainState.AccountsReturned -> {
+                            slidingAccountAdapter.setAccounts(it.accounts)
+
+                            binding.bottomSheetSelection.pageAccounts.run {
+                                adapter = slidingAccountAdapter
+                            }
+
+                            TabLayoutMediator(
+                                binding.bottomSheetSelection.tabAccounts,
+                                binding.bottomSheetSelection.pageAccounts,
+                                TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                                    tab.text = it.accounts[position].accountGroup.name
+                                }).attach()
+                        }
                     }
                 }
             }
@@ -202,15 +223,17 @@ class LogFragment : BaseFragment() {
         when (type) {
             BottomSheetType.ACCOUNT -> {
                 binding.bottomSheetSelection.run {
+                    containerAccountSelection.visible()
+                    recyclerViewSelection.gone()
+
                     textTitle.text = type.name
-                    recyclerViewSelection.run {
-                        adapter = selectionAccountAdapter
-                        layoutManager = LinearLayoutManager(requireContext())
-                    }
                 }
             }
             BottomSheetType.CATEGORY -> {
                 binding.bottomSheetSelection.run {
+                    recyclerViewSelection.visible()
+                    containerAccountSelection.gone()
+
                     textTitle.text = type.name
                     recyclerViewSelection.run {
                         adapter = selectionCategoryAdapter

@@ -1,6 +1,5 @@
 package com.homalab.android.w2.ui.pages.log.category
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Category
-import com.homalab.android.w2.ui.pages.log.LogFragment
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible

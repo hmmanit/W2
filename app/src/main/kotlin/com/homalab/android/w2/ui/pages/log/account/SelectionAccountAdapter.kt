@@ -3,20 +3,18 @@ package com.homalab.android.w2.ui.pages.log.account
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
-import com.homalab.android.w2.data.entity.Accounts
+import com.homalab.android.w2.data.entity.Account
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
-import com.homanad.android.common.extensions.view.visible
 
 class SelectionAccountAdapter : RecyclerView.Adapter<SelectionAccountAdapter.ItemHolder>() {
 
-    private var accountsList = listOf<Accounts>()
+    private var accountsList = listOf<Account>()
 
-    fun setAccountsList(accountsList: List<Accounts>) {
+    fun setAccounts(accountsList: List<Account>) {
         val diffCallback = DiffCallback(this.accountsList, accountsList)
         this.accountsList = accountsList
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
@@ -25,19 +23,19 @@ class SelectionAccountAdapter : RecyclerView.Adapter<SelectionAccountAdapter.Ite
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val textName = view.findViewById<TextView>(R.id.text_name)
-        private val iconSub = view.findViewById<ImageView>(R.id.icon_sub)
+        private val textAmount = view.findViewById<TextView>(R.id.text_amount)
 
-        fun bind(accounts: Accounts) {
+        fun bind(account: Account) {
 
-            textName.text = accounts.accountGroup.name
-            if (accounts.accounts.isNotEmpty()) iconSub.visible()
-            else iconSub.invalidate()
+            textName.text = account.name
+            textAmount.text = account.budget.toString() //TODO currency formatter
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_selection_category, parent, false)
+            .inflate(R.layout.item_selection_account, parent, false)
         return ItemHolder(view)
     }
 
