@@ -93,7 +93,7 @@ class LogFragment : BaseFragment() {
                 showBottomSheetInMode(BottomSheetType.CATEGORY)
             }
 
-            bottomSheetSelection.iconPrevious.setOnClickListener {
+            bottomSheetSelection.containerTitle.setOnClickListener {
                 selectionCategoryAdapter.backToPrevious()
             }
         }

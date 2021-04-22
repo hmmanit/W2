@@ -23,5 +23,6 @@
     <dimen name="itemAnswerMaxWidth">@dimen/dimen_120adp</dimen>
     <dimen name="bottomSheet_roundedLine_width">@dimen/dimen_30adp</dimen>
     <dimen name="bottomSheet_roundedLine_height">@dimen/dimen_2adp</dimen>
+    <dimen name="bottomSheet_selection_height">@dimen/dimen_150adp</dimen>
 
 </resources>

@@ -18,8 +18,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon_sub"
-        android:layout_width="@dimen/smallIconSize"
-        android:layout_height="@dimen/smallIconSize"
+        android:layout_width="@dimen/xSmallIconSize"
+        android:layout_height="@dimen/xSmallIconSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

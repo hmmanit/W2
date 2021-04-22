@@ -30,33 +30,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/icon_previous"
-                    android:layout_width="@dimen/xSmallIconSize"
-                    android:layout_height="@dimen/xSmallIconSize"
-                    android:layout_marginTop="@dimen/smallMargin"
-                    android:visibility="gone"
+                <LinearLayout
+                    android:gravity="center"
+                    android:id="@+id/container_title"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view"
-                    app:srcCompat="@drawable/ic_previous"
-                    tools:visibility="visible" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/text_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/smallMargin"
                     android:layout_marginTop="@dimen/smallMargin"
-                    android:text="@string/category"
-                    app:layout_constraintStart_toEndOf="@id/icon_previous"
-                    app:layout_constraintTop_toTopOf="@id/view" />
+                    app:layout_constraintTop_toBottomOf="@id/view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_previous"
+                        android:layout_width="@dimen/xSmallIconSize"
+                        android:layout_height="@dimen/xSmallIconSize"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_previous"
+                        tools:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/text_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:text="@string/category" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_selection"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/bottomSheet_selection_height"
                     android:layout_marginTop="@dimen/defaultMargin"
-                    app:layout_constraintTop_toBottomOf="@id/text_title" />
+                    app:layout_constraintTop_toBottomOf="@id/container_title" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
