@@ -1,6 +1,5 @@
 package com.homalab.android.w2.ui.pages.log.category
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,50 +8,43 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
-import com.homalab.android.w2.common.util.AnimUtil
 import com.homalab.android.w2.data.entity.Category
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
 
 class SelectionCategoryAdapter(
-    private val context: Context,
     private val categorySelectionListener: CategorySelectionListener
 ) :
     RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
     companion object {
-        private const val ROOT_DEEP = 1
+        private const val ROOT_DEPTH = 1
     }
 
     private var categories = listOf<Category>()
     private val histories = mutableMapOf<Int, List<Category>>()
 
-    private var appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
-
-    private var depth = ROOT_DEEP
+    private var depth = ROOT_DEPTH
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
 
         this.categories = categories
 
-        val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEEP
-        appearanceAnimation =
-            if (depth < newDepth) AnimUtil.getSlideInFromRightAnimation(context)
-            else AnimUtil.getSlideInFromLeftAnimation(context)
+        val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEPTH
+
+        categorySelectionListener.onDeepChanged(newDepth == ROOT_DEPTH, newDepth < depth)
 
         depth = newDepth
-
         histories[depth] = categories
-
-        categorySelectionListener.onDeepChanged(depth == ROOT_DEEP)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
     fun backToPrevious() { //TODO temp solution
-        setCategories(histories[depth-1] ?: listOf())
+        if (depth == ROOT_DEPTH) return
+        setCategories(histories[depth - 1] ?: listOf())
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -62,7 +54,6 @@ class SelectionCategoryAdapter(
         private val iconSub = view.findViewById<ImageView>(R.id.icon_sub)
 
         fun bind(category: Category) {
-            root.startAnimation(appearanceAnimation)
 
             textName.text = category.name
             if (category.subCategories.isNotEmpty()) {
@@ -90,6 +81,6 @@ class SelectionCategoryAdapter(
     }
 
     interface CategorySelectionListener {
-        fun onDeepChanged(isRoot: Boolean)
+        fun onDeepChanged(isRoot: Boolean, isBack: Boolean)
     }
 }

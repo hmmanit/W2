@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LayoutAnimationController
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.homalab.android.w2.R
+import com.homalab.android.w2.common.util.AnimUtil
 import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentLogBinding
@@ -38,11 +40,19 @@ class LogFragment : BaseFragment() {
 
     private val selectionCategoryAdapter by lazy {
         SelectionCategoryAdapter(
-            requireContext(),
             object : SelectionCategoryAdapter.CategorySelectionListener {
-                override fun onDeepChanged(isRoot: Boolean) {
+                override fun onDeepChanged(isRoot: Boolean, isBack: Boolean) {
                     if (isRoot) binding.bottomSheetSelection.iconPrevious.gone()
                     else binding.bottomSheetSelection.iconPrevious.visible()
+
+                    binding.bottomSheetSelection.recyclerViewSelection.layoutAnimation = if (isBack)
+                        LayoutAnimationController(
+                            AnimUtil.getSlideInFromLeftAnimation(requireContext())
+                        )
+                    else LayoutAnimationController(
+                        AnimUtil.getSlideInFromRightAnimation(requireContext())
+                    )
+
                 }
             })
     }
