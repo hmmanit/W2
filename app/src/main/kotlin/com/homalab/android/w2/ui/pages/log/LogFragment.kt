@@ -41,7 +41,7 @@ class LogFragment : BaseFragment() {
     private val selectionCategoryAdapter by lazy {
         SelectionCategoryAdapter(
             object : SelectionCategoryAdapter.CategorySelectionListener {
-                override fun onDeepChanged(isRoot: Boolean, isBack: Boolean) {
+                override fun onDepthChanged(isRoot: Boolean, isBack: Boolean) {
                     if (isRoot) binding.bottomSheetSelection.iconPrevious.gone()
                     else binding.bottomSheetSelection.iconPrevious.visible()
 
@@ -52,7 +52,14 @@ class LogFragment : BaseFragment() {
                     else LayoutAnimationController(
                         AnimUtil.getSlideInFromRightAnimation(requireContext())
                     )
+                }
 
+                override fun onDive(categoryName: String) {
+                    binding.bottomSheetSelection.textTitle.text = categoryName
+                }
+
+                override fun onSelected(category: Category) {
+                    //TODO Select!
                 }
             })
     }
@@ -70,7 +77,7 @@ class LogFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(it.categories)
+                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(BottomSheetType.CATEGORY.name, it.categories)
                         is MainState.AccountsReturned -> selectionAccountAdapter.setAccountsList(it.accounts)
                     }
                 }
@@ -102,7 +109,6 @@ class LogFragment : BaseFragment() {
             textCategory.setOnClickListener {
                 showBottomSheetInMode(BottomSheetType.CATEGORY)
             }
-
             bottomSheetSelection.containerTitle.setOnClickListener {
                 selectionCategoryAdapter.backToPrevious()
             }

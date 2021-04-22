@@ -1,5 +1,6 @@
 package com.homalab.android.w2.ui.pages.log.category
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Category
+import com.homalab.android.w2.ui.pages.log.LogFragment
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
@@ -23,28 +25,30 @@ class SelectionCategoryAdapter(
     }
 
     private var categories = listOf<Category>()
-    private val histories = mutableMapOf<Int, List<Category>>()
+    private val histories = mutableMapOf<Int, Pair<String, List<Category>>>()
 
     private var depth = ROOT_DEPTH
 
-    fun setCategories(categories: List<Category>) {
+    fun setCategories(categoryTitle: String, categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
 
         this.categories = categories
 
         val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEPTH
 
-        categorySelectionListener.onDeepChanged(newDepth == ROOT_DEPTH, newDepth < depth)
+        categorySelectionListener.onDepthChanged(newDepth == ROOT_DEPTH, newDepth < depth)
 
         depth = newDepth
-        histories[depth] = categories
+        histories[depth] = categoryTitle to categories
+        categorySelectionListener.onDive(categoryTitle)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
     fun backToPrevious() { //TODO temp solution
         if (depth == ROOT_DEPTH) return
-        setCategories(histories[depth - 1] ?: listOf())
+        val history = histories[depth - 1]
+        setCategories(history?.first ?: "", history?.second ?: listOf())
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -60,9 +64,15 @@ class SelectionCategoryAdapter(
                 iconSub.visible()
 
                 root.setOnClickListener {
-                    setCategories(category.subCategories)
+                    setCategories(category.name, category.subCategories)
                 }
-            } else iconSub.invisible()
+            } else {
+                iconSub.invisible()
+
+                root.setOnClickListener {
+                    categorySelectionListener.onSelected(category)
+                }
+            }
         }
     }
 
@@ -81,6 +91,8 @@ class SelectionCategoryAdapter(
     }
 
     interface CategorySelectionListener {
-        fun onDeepChanged(isRoot: Boolean, isBack: Boolean)
+        fun onDepthChanged(isRoot: Boolean, isBack: Boolean)
+        fun onDive(categoryName: String)
+        fun onSelected(category: Category)
     }
 }
