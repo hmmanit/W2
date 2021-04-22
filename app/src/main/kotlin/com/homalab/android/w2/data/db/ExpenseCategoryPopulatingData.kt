@@ -2,11 +2,19 @@ package com.homalab.android.w2.data.db
 
 import com.homalab.android.w2.data.entity.Category
 
+//Eating out TODO For testing
+val eatingOutSubCategories = listOf(
+    Category(0, "A", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
+    Category(0, "B", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
+    Category(0, "C", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
+    Category(0, "D", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
+)
+
 //Food
 val foodSubCategories = listOf(
     Category(0, "Lunch", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),2),
     Category(0, "Dinner", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),2),
-    Category(0, "Eating out", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),2),
+    Category(0, "Eating out", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),2, eatingOutSubCategories),
     Category(0, "Beverages", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),2),
 )
 
