@@ -26,7 +26,7 @@ class SelectionCategoryAdapter(
     }
 
     private var categories = listOf<Category>()
-    private var prevCategories = listOf<Category>()
+    private val histories = mutableMapOf<Int, List<Category>>()
 
     private var appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
 
@@ -34,7 +34,7 @@ class SelectionCategoryAdapter(
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
-        prevCategories = this.categories
+
         this.categories = categories
 
         val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEEP
@@ -43,13 +43,16 @@ class SelectionCategoryAdapter(
             else AnimUtil.getSlideInFromLeftAnimation(context)
 
         depth = newDepth
+
+        histories[depth] = categories
+
         categorySelectionListener.onDeepChanged(depth == ROOT_DEEP)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
-    fun backToPrevious(){ //TODO temp solution
-        setCategories(prevCategories)
+    fun backToPrevious() { //TODO temp solution
+        setCategories(histories[depth-1] ?: listOf())
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
