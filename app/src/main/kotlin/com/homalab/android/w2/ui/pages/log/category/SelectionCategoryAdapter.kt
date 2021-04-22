@@ -30,20 +30,20 @@ class SelectionCategoryAdapter(
 
     private var appearanceAnimation = AnimUtil.getSlideInFromRightAnimation(context)
 
-    private var deepVal = ROOT_DEEP
+    private var depth = ROOT_DEEP
 
     fun setCategories(categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
         prevCategories = this.categories
         this.categories = categories
 
-        val newDeepVal = if (categories.isNotEmpty()) categories[0].deepVal else ROOT_DEEP
+        val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEEP
         appearanceAnimation =
-            if (deepVal < newDeepVal) AnimUtil.getSlideInFromRightAnimation(context)
+            if (depth < newDepth) AnimUtil.getSlideInFromRightAnimation(context)
             else AnimUtil.getSlideInFromLeftAnimation(context)
 
-        deepVal = newDeepVal
-        categorySelectionListener.onDeepChanged(deepVal == ROOT_DEEP)
+        depth = newDepth
+        categorySelectionListener.onDeepChanged(depth == ROOT_DEEP)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
