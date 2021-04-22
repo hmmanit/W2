@@ -10,7 +10,9 @@ import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Account
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 
-class SelectionAccountAdapter : RecyclerView.Adapter<SelectionAccountAdapter.ItemHolder>() {
+class SelectionAccountAdapter(
+    private val selectionAccountListener: SlidingAccountAdapter.SelectionAccountListener
+) : RecyclerView.Adapter<SelectionAccountAdapter.ItemHolder>() {
 
     private var accountsList = listOf<Account>()
 
@@ -22,6 +24,7 @@ class SelectionAccountAdapter : RecyclerView.Adapter<SelectionAccountAdapter.Ite
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        private val root = view.rootView
         private val textName = view.findViewById<TextView>(R.id.text_name)
         private val textAmount = view.findViewById<TextView>(R.id.text_amount)
 
@@ -30,6 +33,9 @@ class SelectionAccountAdapter : RecyclerView.Adapter<SelectionAccountAdapter.Ite
             textName.text = account.name
             textAmount.text = account.budget.toString() //TODO currency formatter
 
+            root.setOnClickListener {
+                selectionAccountListener.onSelected(account)
+            }
         }
     }
 

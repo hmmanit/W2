@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
+import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.entity.Accounts
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 
-class SlidingAccountAdapter : RecyclerView.Adapter<SlidingAccountAdapter.ItemHolder>() {
+class SlidingAccountAdapter(
+    private val selectionAccountListener: SelectionAccountListener
+) : RecyclerView.Adapter<SlidingAccountAdapter.ItemHolder>() {
 
     private var accounts = listOf<Accounts>()
 
@@ -22,10 +25,11 @@ class SlidingAccountAdapter : RecyclerView.Adapter<SlidingAccountAdapter.ItemHol
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val recyclerViewAccounts = view.findViewById<RecyclerView>(R.id.recycler_view_accounts)
+        private val recyclerViewAccounts =
+            view.findViewById<RecyclerView>(R.id.recycler_view_accounts)
 
         fun bind(accounts: Accounts) {
-            val selectionAccountAdapter = SelectionAccountAdapter()
+            val selectionAccountAdapter = SelectionAccountAdapter(selectionAccountListener)
             selectionAccountAdapter.setAccounts(accounts.accounts)
             recyclerViewAccounts.run {
                 adapter = selectionAccountAdapter
@@ -46,5 +50,9 @@ class SlidingAccountAdapter : RecyclerView.Adapter<SlidingAccountAdapter.ItemHol
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.bind(accounts[position])
+    }
+
+    interface SelectionAccountListener {
+        fun onSelected(account: Account)
     }
 }

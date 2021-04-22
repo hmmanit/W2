@@ -15,8 +15,7 @@ import com.homanad.android.common.extensions.view.visible
 
 class SelectionCategoryAdapter(
     private val categorySelectionListener: CategorySelectionListener
-) :
-    RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
+) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
     companion object {
         private const val ROOT_DEPTH = 1

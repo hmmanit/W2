@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayoutMediator
 import com.homalab.android.w2.R
 import com.homalab.android.w2.common.util.AnimUtil
+import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
 import com.homalab.android.w2.databinding.FragmentLogBinding
@@ -67,11 +68,13 @@ class LogFragment : BaseFragment() {
             })
     }
 
-    //    private val selectionAccountAdapter by lazy {
-//        SelectionAccountAdapter()
-//    }
     private val slidingAccountAdapter by lazy {
-        SlidingAccountAdapter()
+        SlidingAccountAdapter(object : SlidingAccountAdapter.SelectionAccountListener{
+            override fun onSelected(account: Account) {
+                binding.textAccount.setText(account.name)
+                hideBottomSheet()
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
