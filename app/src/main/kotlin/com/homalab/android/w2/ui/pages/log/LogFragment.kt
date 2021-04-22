@@ -89,10 +89,6 @@ class LogFragment : BaseFragment() {
                         is MainState.AccountsReturned -> {
                             slidingAccountAdapter.setAccounts(it.accounts)
 
-                            binding.bottomSheetSelection.pageAccounts.run {
-                                adapter = slidingAccountAdapter
-                            }
-
                             TabLayoutMediator(
                                 binding.bottomSheetSelection.tabAccounts,
                                 binding.bottomSheetSelection.pageAccounts,
@@ -130,8 +126,19 @@ class LogFragment : BaseFragment() {
             textCategory.setOnClickListener {
                 showBottomSheetInMode(BottomSheetType.CATEGORY)
             }
-            bottomSheetSelection.containerTitle.setOnClickListener {
-                selectionCategoryAdapter.backToPrevious()
+            bottomSheetSelection.run {
+                containerTitle.setOnClickListener {
+                    selectionCategoryAdapter.backToPrevious()
+                }
+
+                recyclerViewSelection.run {
+                    adapter = selectionCategoryAdapter
+                    layoutManager = LinearLayoutManager(requireContext())
+                }
+
+                pageAccounts.run {
+                    adapter = slidingAccountAdapter
+                }
             }
         }
     }
@@ -225,20 +232,12 @@ class LogFragment : BaseFragment() {
                 binding.bottomSheetSelection.run {
                     containerAccountSelection.visible()
                     recyclerViewSelection.gone()
-
-                    textTitle.text = type.name
                 }
             }
             BottomSheetType.CATEGORY -> {
                 binding.bottomSheetSelection.run {
                     recyclerViewSelection.visible()
                     containerAccountSelection.gone()
-
-                    textTitle.text = type.name
-                    recyclerViewSelection.run {
-                        adapter = selectionCategoryAdapter
-                        layoutManager = LinearLayoutManager(requireContext())
-                    }
                 }
             }
         }
