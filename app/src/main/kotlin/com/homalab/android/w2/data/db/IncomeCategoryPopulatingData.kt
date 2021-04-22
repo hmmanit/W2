@@ -44,9 +44,9 @@ val otherSubCategories = listOf<Category>(
 )
 
 val incomeCategories = listOf(
-    Category(0, "Allowance", Category.Type.INCOME.ordinal, System.currentTimeMillis(), System.currentTimeMillis(), 1, allowanceCategories),
-    Category(0, "Salary", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1, salarySubCategories),
-    Category(0, "Petty cash", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1, pettyCashSubCategoties),
-    Category(0, "Bonus", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1, bonusSubCategories),
-    Category(0, "Other", Category.Type.INCOME.ordinal, System.currentTimeMillis(), System.currentTimeMillis(),1, otherSubCategories)
+    Category(0, "Allowance", Category.Type.INCOME.ordinal, System.currentTimeMillis(), System.currentTimeMillis(), 1),
+    Category(0, "Salary", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1),
+    Category(0, "Petty cash", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1),
+    Category(0, "Bonus", Category.Type.INCOME.ordinal,System.currentTimeMillis(), System.currentTimeMillis(), 1),
+    Category(0, "Other", Category.Type.INCOME.ordinal, System.currentTimeMillis(), System.currentTimeMillis(),1)
 )
