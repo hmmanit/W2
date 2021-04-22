@@ -61,7 +61,8 @@ class LogFragment : BaseFragment() {
                 }
 
                 override fun onSelected(category: Category) {
-                    //TODO Select!
+                    binding.textCategory.setText(category.name)
+                    hideBottomSheet()
                 }
             })
     }
@@ -242,6 +243,10 @@ class LogFragment : BaseFragment() {
             }
         }
         mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun hideBottomSheet(){
+        mBottomSheetSelector.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     enum class BottomSheetType {
