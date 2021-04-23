@@ -57,11 +57,12 @@ class SelectionCategoryAdapter(
         fun bind(category: Category) {
 
             textName.text = category.name
-            if (category.subCategories.isNotEmpty()) {
+            val subCategories = dive(category.id)
+            if (subCategories.isNotEmpty()) {
                 iconSub.visible()
 
                 root.setOnClickListener {
-                    setCategories(category.name, category.subCategories)
+                    setCategories(category.name, subCategories)
                 }
             } else {
                 iconSub.invisible()
@@ -91,5 +92,11 @@ class SelectionCategoryAdapter(
         fun onDepthChanged(isRoot: Boolean, isBack: Boolean)
         fun onDive(categoryName: String)
         fun onSelected(category: Category)
+    }
+
+    private fun dive(id: Long): List<Category>{
+       return categories.filter {
+            it.parentId == id
+        }
     }
 }

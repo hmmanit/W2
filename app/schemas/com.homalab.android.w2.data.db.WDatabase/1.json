@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ffac418fc69bdf095c5419f2dcc0b56f",
+    "identityHash": "c678d398f3b015828140071102234a4f",
     "entities": [
       {
         "tableName": "Expense",
@@ -156,7 +156,7 @@
       },
       {
         "tableName": "Category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `type` INTEGER NOT NULL, `createdTime` INTEGER NOT NULL, `updatedTime` INTEGER NOT NULL, `depth` INTEGER NOT NULL, `subCategories` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `type` INTEGER NOT NULL, `createdTime` INTEGER NOT NULL, `updatedTime` INTEGER NOT NULL, `depth` INTEGER NOT NULL, `parentId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -195,9 +195,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "subCategories",
-            "columnName": "subCategories",
-            "affinity": "TEXT",
+            "fieldPath": "parentId",
+            "columnName": "parentId",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -214,7 +214,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ffac418fc69bdf095c5419f2dcc0b56f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c678d398f3b015828140071102234a4f')"
     ]
   }
 }
