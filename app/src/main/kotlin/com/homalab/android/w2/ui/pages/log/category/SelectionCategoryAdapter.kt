@@ -21,12 +21,18 @@ class SelectionCategoryAdapter(
         private const val ROOT_DEPTH = 1
     }
 
+    private var rawCategories = listOf<Category>()
     private var categories = listOf<Category>()
     private val histories = mutableMapOf<Int, Pair<String, List<Category>>>()
 
     private var depth = ROOT_DEPTH
 
-    fun setCategories(categoryTitle: String, categories: List<Category>) {
+    fun set(categoryTitle: String, categories: List<Category>){
+        rawCategories = categories
+        setCategories(categoryTitle, rawCategories.dive(-1))
+    }
+
+    private fun setCategories(categoryTitle: String, categories: List<Category>) {
         val diffCallback = DiffCallback(this.categories, categories)
 
         this.categories = categories
@@ -57,7 +63,7 @@ class SelectionCategoryAdapter(
         fun bind(category: Category) {
 
             textName.text = category.name
-            val subCategories = dive(category.id)
+            val subCategories = rawCategories.dive(category.id)
             if (subCategories.isNotEmpty()) {
                 iconSub.visible()
 
@@ -94,8 +100,14 @@ class SelectionCategoryAdapter(
         fun onSelected(category: Category)
     }
 
-    private fun dive(id: Long): List<Category>{
-       return categories.filter {
+//    private fun dive(id: Long): List<Category>{
+//       return categories.filter {
+//            it.parentId == id
+//        }
+//    }
+
+    fun List<Category>.dive(id: Long): List<Category> {
+        return filter {
             it.parentId == id
         }
     }

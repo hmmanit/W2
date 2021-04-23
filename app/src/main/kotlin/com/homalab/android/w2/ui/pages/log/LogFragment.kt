@@ -86,7 +86,7 @@ class LogFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setCategories(
+                        is MainState.CategoriesReturned -> selectionCategoryAdapter.set(
                             BottomSheetType.CATEGORY.name,
                             it.categories
                         )
