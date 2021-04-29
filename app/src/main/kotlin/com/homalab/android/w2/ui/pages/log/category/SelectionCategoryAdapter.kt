@@ -21,41 +21,41 @@ class SelectionCategoryAdapter(
 ) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
     companion object {
-        private const val ROOT_DEPTH = 1
+        private const val ROOT_PARENT_ID: Long = -1
     }
 
     private var rawCategories = listOf<Category>()
     private var categories = listOf<Category>()
 
-    private var depth = ROOT_DEPTH
+    private var parentId = ROOT_PARENT_ID
 
     fun set(categoryTitle: String, categories: List<Category>) {
         rawCategories = categories
-        setCategories(categoryTitle, rawCategories.dive(-1))
+        setCategories(categoryTitle, rawCategories.dive(parentId), false)
     }
 
-    private fun setCategories(categoryTitle: String, categories: List<Category>) {
+    private fun setCategories(categoryTitle: String, categories: List<Category>, isBack: Boolean) {
         val diffCallback = DiffCallback(this.categories, categories)
 
         this.categories = categories
 
-        val newDepth = if (categories.isNotEmpty()) categories[0].depth else ROOT_DEPTH
+        val newParentId = if (categories.isNotEmpty()) categories[0].parentId else ROOT_PARENT_ID
 
-        categorySelectionListener.onDepthChanged(newDepth == ROOT_DEPTH, newDepth < depth)
+        categorySelectionListener.onDepthChanged(newParentId == ROOT_PARENT_ID, isBack)
 
-        depth = newDepth
+        parentId = newParentId
         categorySelectionListener.onDive(categoryTitle)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
     fun backToPrevious() { //TODO temp solution
-        if (depth == ROOT_DEPTH) return
+        if (parentId == ROOT_PARENT_ID) return
         val currentParentId = if (categories.isNotEmpty()) categories[0].parentId else -1
         val category = rawCategories.findById(currentParentId)
         val categoryName =
             if (category.parentId == -1L) LogFragment.BottomSheetType.CATEGORY.name else category.name
-        setCategories(categoryName, rawCategories.dive(category.parentId))
+        setCategories(categoryName, rawCategories.dive(category.parentId), true)
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -72,7 +72,7 @@ class SelectionCategoryAdapter(
                 iconSub.visible()
 
                 root.setOnClickListener {
-                    setCategories(category.name, subCategories)
+                    setCategories(category.name, subCategories, false)
                 }
             } else {
                 iconSub.invisible()
