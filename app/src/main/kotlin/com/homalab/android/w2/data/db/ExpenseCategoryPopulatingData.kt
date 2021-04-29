@@ -2,6 +2,7 @@ package com.homalab.android.w2.data.db
 
 import com.homalab.android.w2.data.entity.Category
 
+const val ID_ROOT = -1L
 const val ID_FOOD = 1L
 const val ID_SOCIAL_LIFE= 2L
 const val ID_SELF_DEVELOPMENT = 3L
@@ -16,12 +17,12 @@ const val ID_GIFT = 11L
 const val ID_OTHER = 12L
 
 ////Eating out TODO For testing
-//val eatingOutSubCategories = listOf(
-//    Category(0, "A", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
-//    Category(0, "B", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
-//    Category(0, "C", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
-//    Category(0, "D", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3),
-//)
+val eatingOutSubCategories = listOf(
+    Category(0, "A", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3, 15),
+    Category(0, "B", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3, 15),
+    Category(0, "C", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3, 15),
+    Category(0, "D", Category.Type.EXPENSE.ordinal,System.currentTimeMillis(), System.currentTimeMillis(),3, 15),
+)
 
 //Food
 val foodSubCategories = listOf(
@@ -123,5 +124,6 @@ val expenseCategories = mutableListOf<Category>().apply {
     addAll(healthSubCategories)
     addAll(beautySubCategories)
     addAll(educationSubCategories)
+    addAll(eatingOutSubCategories)
 }
 

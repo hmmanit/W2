@@ -2,6 +2,7 @@ package com.homalab.android.w2.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.homalab.android.w2.data.db.ID_ROOT
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -15,7 +16,7 @@ data class Category(
     val updatedTime: Long = System.currentTimeMillis(),
     val depth: Int = 1,
 //    val subCategories: List<Category> = listOf()
-    val parentId: Long = -1
+    val parentId: Long = ID_ROOT
 ) {
     enum class Type {
         EXPENSE, INCOME

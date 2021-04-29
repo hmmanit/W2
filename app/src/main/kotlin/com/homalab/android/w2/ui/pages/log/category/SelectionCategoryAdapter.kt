@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
+import com.homalab.android.w2.data.db.ID_ROOT
 import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.ui.pages.log.LogFragment
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
@@ -20,14 +21,10 @@ class SelectionCategoryAdapter(
     private val categorySelectionListener: CategorySelectionListener
 ) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
 
-    companion object {
-        private const val ROOT_PARENT_ID: Long = -1
-    }
-
     private var rawCategories = listOf<Category>()
     private var categories = listOf<Category>()
 
-    private var parentId = ROOT_PARENT_ID
+    private var parentId = ID_ROOT
 
     fun set(categoryTitle: String, categories: List<Category>) {
         rawCategories = categories
@@ -39,9 +36,9 @@ class SelectionCategoryAdapter(
 
         this.categories = categories
 
-        val newParentId = if (categories.isNotEmpty()) categories[0].parentId else ROOT_PARENT_ID
+        val newParentId = if (categories.isNotEmpty()) categories[0].parentId else ID_ROOT
 
-        categorySelectionListener.onDepthChanged(newParentId == ROOT_PARENT_ID, isBack)
+        categorySelectionListener.onDepthChanged(newParentId == ID_ROOT, isBack)
 
         parentId = newParentId
         categorySelectionListener.onDive(categoryTitle)
@@ -50,11 +47,11 @@ class SelectionCategoryAdapter(
     }
 
     fun backToPrevious() { //TODO temp solution
-        if (parentId == ROOT_PARENT_ID) return
+        if (parentId == ID_ROOT) return
         val currentParentId = if (categories.isNotEmpty()) categories[0].parentId else -1
         val category = rawCategories.findById(currentParentId)
         val categoryName =
-            if (category.parentId == -1L) LogFragment.BottomSheetType.CATEGORY.name else category.name
+            if (category.parentId == -1L) LogFragment.BottomSheetType.CATEGORY.name else rawCategories.findById(category.parentId).name
         setCategories(categoryName, rawCategories.dive(category.parentId), true)
     }
 
