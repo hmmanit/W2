@@ -11,6 +11,7 @@ data class Income(
     val description: String = "",
     val amount: Float = 0f,
     val accountId: Long = 0, //optional
+    val categoryId: Long = 0,
     val createdTime: Long = 0,
     val updatedTime: Long = 0
 )
