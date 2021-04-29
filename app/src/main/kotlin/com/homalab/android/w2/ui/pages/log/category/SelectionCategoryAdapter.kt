@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.homalab.android.w2.R
 import com.homalab.android.w2.data.entity.Category
+import com.homalab.android.w2.ui.pages.log.LogFragment
 import com.homanad.android.common.components.recyclerView.util.DiffCallback
 import com.homanad.android.common.extensions.view.invisible
 import com.homanad.android.common.extensions.view.visible
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class SelectionCategoryAdapter(
     private val categorySelectionListener: CategorySelectionListener
 ) : RecyclerView.Adapter<SelectionCategoryAdapter.ItemHolder>() {
@@ -23,11 +26,10 @@ class SelectionCategoryAdapter(
 
     private var rawCategories = listOf<Category>()
     private var categories = listOf<Category>()
-    private val histories = mutableMapOf<Int, Pair<String, List<Category>>>()
 
     private var depth = ROOT_DEPTH
 
-    fun set(categoryTitle: String, categories: List<Category>){
+    fun set(categoryTitle: String, categories: List<Category>) {
         rawCategories = categories
         setCategories(categoryTitle, rawCategories.dive(-1))
     }
@@ -42,7 +44,6 @@ class SelectionCategoryAdapter(
         categorySelectionListener.onDepthChanged(newDepth == ROOT_DEPTH, newDepth < depth)
 
         depth = newDepth
-        histories[depth] = categoryTitle to categories
         categorySelectionListener.onDive(categoryTitle)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
@@ -50,8 +51,11 @@ class SelectionCategoryAdapter(
 
     fun backToPrevious() { //TODO temp solution
         if (depth == ROOT_DEPTH) return
-        val history = histories[depth - 1]
-        setCategories(history?.first ?: "", history?.second ?: listOf())
+        val currentParentId = if (categories.isNotEmpty()) categories[0].parentId else -1
+        val category = rawCategories.findById(currentParentId)
+        val categoryName =
+            if (category.parentId == -1L) LogFragment.BottomSheetType.CATEGORY.name else category.name
+        setCategories(categoryName, rawCategories.dive(category.parentId))
     }
 
     inner class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -100,15 +104,15 @@ class SelectionCategoryAdapter(
         fun onSelected(category: Category)
     }
 
-//    private fun dive(id: Long): List<Category>{
-//       return categories.filter {
-//            it.parentId == id
-//        }
-//    }
-
     fun List<Category>.dive(id: Long): List<Category> {
         return filter {
             it.parentId == id
         }
+    }
+
+    private fun List<Category>.findById(id: Long): Category {
+        return filter {
+            it.id == id
+        }[0]
     }
 }
