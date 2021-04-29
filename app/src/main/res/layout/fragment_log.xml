@@ -16,129 +16,205 @@
                 android:id="@+id/header"
                 layout="@layout/header" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/container_type"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggle_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/defaultMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header">
+                app:layout_constraintTop_toBottomOf="@id/header"
 
-                <RadioGroup
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/button_category"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/defaultMargin"
-                    android:orientation="horizontal">
+                    android:text="@string/income" />
 
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/income" />
+                <Button
+                    android:id="@+id/button_sub_category"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expense" />
 
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/defaultMargin"
-                        android:text="@string/expense" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
-                </RadioGroup>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/account"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_account"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultMargin"
-                android:layout_marginTop="@dimen/largeMargin"
-                android:text="@string/account"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container_type" />
+                android:hint="@string/account"
+                app:layout_constraintTop_toBottomOf="@id/toggle_group">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/text_account"
-                style="@style/NonFocusableEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                app:layout_constraintBaseline_toBaselineOf="@id/account"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/account" />
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/NonFocusableEditText"
+                    android:id="@+id/text_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/category"
-                app:layout_constraintStart_toStartOf="@id/account"
-                app:layout_constraintTop_toBottomOf="@id/account" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/text_category"
-                style="@style/NonFocusableEditText"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_category"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                app:layout_constraintBaseline_toBaselineOf="@id/category"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/category" />
+                android:hint="@string/category"
+                app:layout_constraintTop_toBottomOf="@id/input_account">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/amount"
-                app:layout_constraintStart_toStartOf="@id/category"
-                app:layout_constraintTop_toBottomOf="@id/category" />
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/NonFocusableEditText"
+                    android:id="@+id/text_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/text_amount"
-                android:inputType="number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                app:layout_constraintBaseline_toBaselineOf="@id/amount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/amount" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/note"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_amount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/note"
-                app:layout_constraintStart_toStartOf="@id/amount"
-                app:layout_constraintTop_toBottomOf="@id/amount" />
+                android:hint="@string/amount"
+                app:layout_constraintTop_toBottomOf="@id/input_category">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/text_note"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                app:layout_constraintBaseline_toBaselineOf="@id/note"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/note" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="number"
+                    android:id="@+id/text_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/description"
-                app:layout_constraintStart_toStartOf="@id/note"
-                app:layout_constraintTop_toBottomOf="@id/note" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/text_description"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_note"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                app:layout_constraintBaseline_toBaselineOf="@id/description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/description" />
+                android:hint="@string/note"
+                app:layout_constraintTop_toBottomOf="@id/input_amount">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                app:layout_constraintTop_toBottomOf="@id/input_note">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/account"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/defaultMargin"-->
+            <!--                android:layout_marginTop="@dimen/largeMargin"-->
+            <!--                android:text="@string/account"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/toggle_group" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/text_account"-->
+            <!--                style="@style/NonFocusableEditText"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="@dimen/defaultMargin"-->
+            <!--                app:layout_constraintBaseline_toBaselineOf="@id/account"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/account" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/category"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/defaultMargin"-->
+            <!--                android:text="@string/category"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/account"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/account" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/text_category"-->
+            <!--                style="@style/NonFocusableEditText"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="@dimen/defaultMargin"-->
+            <!--                app:layout_constraintBaseline_toBaselineOf="@id/category"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/category" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/amount"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/defaultMargin"-->
+            <!--                android:text="@string/amount"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/category"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/category" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/text_amount"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="@dimen/defaultMargin"-->
+            <!--                android:inputType="number"-->
+            <!--                app:layout_constraintBaseline_toBaselineOf="@id/amount"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/amount" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/note"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/defaultMargin"-->
+            <!--                android:text="@string/note"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/amount"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/amount" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/text_note"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="@dimen/defaultMargin"-->
+            <!--                app:layout_constraintBaseline_toBaselineOf="@id/note"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/note" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatTextView-->
+            <!--                android:id="@+id/description"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/defaultMargin"-->
+            <!--                android:text="@string/description"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/note"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/note" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatEditText-->
+            <!--                android:id="@+id/text_description"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="@dimen/defaultMargin"-->
+            <!--                app:layout_constraintBaseline_toBaselineOf="@id/description"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/description" />-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_save"
@@ -149,7 +225,7 @@
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description" />
+                app:layout_constraintTop_toBottomOf="@id/input_description" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
