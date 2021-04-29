@@ -18,25 +18,25 @@
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/toggle_group"
+                app:checkedButton="@id/button_expense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/defaultMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/header"
-
                 app:selectionRequired="true"
                 app:singleSelection="true">
 
                 <Button
-                    android:id="@+id/button_category"
+                    android:id="@+id/button_income"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/income" />
 
                 <Button
-                    android:id="@+id/button_sub_category"
+                    android:id="@+id/button_expense"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,8 +53,8 @@
                 app:layout_constraintTop_toBottomOf="@id/toggle_group">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/NonFocusableEditText"
                     android:id="@+id/text_account"
+                    style="@style/NonFocusableEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -69,8 +69,8 @@
                 app:layout_constraintTop_toBottomOf="@id/input_account">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/NonFocusableEditText"
                     android:id="@+id/text_category"
+                    style="@style/NonFocusableEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -85,10 +85,10 @@
                 app:layout_constraintTop_toBottomOf="@id/input_category">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:inputType="number"
                     android:id="@+id/text_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

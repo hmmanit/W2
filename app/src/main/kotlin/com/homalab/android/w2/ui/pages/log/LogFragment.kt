@@ -43,7 +43,11 @@ class LogFragment : BaseFragment() {
     private val selectionCategoryAdapter by lazy {
         SelectionCategoryAdapter(
             object : SelectionCategoryAdapter.CategorySelectionListener {
-                override fun onDepthChanged(categoryName: String, isRoot: Boolean, isBack: Boolean) {
+                override fun onDepthChanged(
+                    categoryName: String,
+                    isRoot: Boolean,
+                    isBack: Boolean
+                ) {
                     binding.bottomSheetSelection.textTitle.text = categoryName
 
                     if (isRoot) binding.bottomSheetSelection.iconPrevious.gone()
@@ -66,7 +70,7 @@ class LogFragment : BaseFragment() {
     }
 
     private val slidingAccountAdapter by lazy {
-        SlidingAccountAdapter(object : SlidingAccountAdapter.SelectionAccountListener{
+        SlidingAccountAdapter(object : SlidingAccountAdapter.SelectionAccountListener {
             override fun onSelected(account: Account) {
                 binding.textAccount.setText(account.name)
                 hideBottomSheet()
@@ -245,7 +249,7 @@ class LogFragment : BaseFragment() {
         mBottomSheetSelector.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun hideBottomSheet(){
+    private fun hideBottomSheet() {
         mBottomSheetSelector.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
