@@ -21,7 +21,6 @@ import com.homalab.android.w2.databinding.FragmentLogBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.main.viewstate.MainState
-import com.homalab.android.w2.ui.pages.log.account.SelectionAccountAdapter
 import com.homalab.android.w2.ui.pages.log.account.SlidingAccountAdapter
 import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
 import com.homanad.android.common.components.ui.BaseFragment
@@ -44,7 +43,9 @@ class LogFragment : BaseFragment() {
     private val selectionCategoryAdapter by lazy {
         SelectionCategoryAdapter(
             object : SelectionCategoryAdapter.CategorySelectionListener {
-                override fun onDepthChanged(isRoot: Boolean, isBack: Boolean) {
+                override fun onDepthChanged(categoryName: String, isRoot: Boolean, isBack: Boolean) {
+                    binding.bottomSheetSelection.textTitle.text = categoryName
+
                     if (isRoot) binding.bottomSheetSelection.iconPrevious.gone()
                     else binding.bottomSheetSelection.iconPrevious.visible()
 
@@ -55,10 +56,6 @@ class LogFragment : BaseFragment() {
                     else LayoutAnimationController(
                         AnimUtil.getSlideInFromRightAnimation(requireContext())
                     )
-                }
-
-                override fun onDive(categoryName: String) {
-                    binding.bottomSheetSelection.textTitle.text = categoryName
                 }
 
                 override fun onSelected(category: Category) {
@@ -86,7 +83,7 @@ class LogFragment : BaseFragment() {
             lifecycleScope.launch {
                 state.collect {
                     when (it) {
-                        is MainState.CategoriesReturned -> selectionCategoryAdapter.set(
+                        is MainState.CategoriesReturned -> selectionCategoryAdapter.setRawCategories(
                             BottomSheetType.CATEGORY.name,
                             it.categories
                         )

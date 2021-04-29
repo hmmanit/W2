@@ -26,32 +26,31 @@ class SelectionCategoryAdapter(
 
     private var parentId = ID_ROOT
 
-    fun set(categoryTitle: String, categories: List<Category>) {
+    fun setRawCategories(categoryName: String, categories: List<Category>) {
         rawCategories = categories
-        setCategories(categoryTitle, rawCategories.dive(parentId), false)
+        setCategories(categoryName, rawCategories.dive(parentId), false)
     }
 
-    private fun setCategories(categoryTitle: String, categories: List<Category>, isBack: Boolean) {
+    private fun setCategories(categoryName: String, categories: List<Category>, isBack: Boolean) {
         val diffCallback = DiffCallback(this.categories, categories)
 
         this.categories = categories
 
         val newParentId = if (categories.isNotEmpty()) categories[0].parentId else ID_ROOT
 
-        categorySelectionListener.onDepthChanged(newParentId == ID_ROOT, isBack)
+        categorySelectionListener.onDepthChanged(categoryName,newParentId == ID_ROOT, isBack)
 
         parentId = newParentId
-        categorySelectionListener.onDive(categoryTitle)
 
         DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
     }
 
-    fun backToPrevious() { //TODO temp solution
+    fun backToPrevious() {
         if (parentId == ID_ROOT) return
         val currentParentId = if (categories.isNotEmpty()) categories[0].parentId else -1
         val category = rawCategories.findById(currentParentId)
         val categoryName =
-            if (category.parentId == -1L) LogFragment.BottomSheetType.CATEGORY.name else rawCategories.findById(category.parentId).name
+            if (category.parentId == ID_ROOT) LogFragment.BottomSheetType.CATEGORY.name else rawCategories.findById(category.parentId).name
         setCategories(categoryName, rawCategories.dive(category.parentId), true)
     }
 
@@ -96,8 +95,7 @@ class SelectionCategoryAdapter(
     }
 
     interface CategorySelectionListener {
-        fun onDepthChanged(isRoot: Boolean, isBack: Boolean)
-        fun onDive(categoryName: String)
+        fun onDepthChanged(categoryName: String, isRoot: Boolean, isBack: Boolean)
         fun onSelected(category: Category)
     }
 
