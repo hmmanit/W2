@@ -40,7 +40,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ItemHolder>() {
                 val textTitle = view.findViewById<TextView>(R.id.text_title)
                 val textAmount = view.findViewById<TextView>(R.id.text_amount)
 
-                textTitle.text = it.title
+                textTitle.text = it.note
                 textAmount.text = it.amount.toString()
 
                 containerActivity.addView(view)

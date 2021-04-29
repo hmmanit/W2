@@ -9,5 +9,5 @@ import com.homalab.android.w2.data.entity.Expense
 abstract class ExpenseDao : BaseDao<Expense> {
 
     @Query("SELECT * FROM Expense ORDER BY createdTime DESC") //TODO Sort condition
-    abstract suspend fun getAllSpending(): List<Expense>
+    abstract suspend fun getAllExpenses(): List<Expense>
 }

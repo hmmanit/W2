@@ -10,6 +10,8 @@ import com.homalab.android.w2.data.repository.category.datasource.CategoryDataSo
 import com.homalab.android.w2.data.repository.category.datasource.CategoryDataSourceImpl
 import com.homalab.android.w2.data.repository.expense.datasource.ExpenseDataSource
 import com.homalab.android.w2.data.repository.expense.datasource.ExpenseDataSourceImpl
+import com.homalab.android.w2.data.repository.income.datasource.IncomeDataSource
+import com.homalab.android.w2.data.repository.income.datasource.IncomeDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,7 +22,10 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class DataSourceModule {
 
     @Binds
-    abstract fun bindExpenseDataSource(spendingDataSourceImpl: ExpenseDataSourceImpl): ExpenseDataSource
+    abstract fun bindExpenseDataSource(expenseDataSourceImpl: ExpenseDataSourceImpl): ExpenseDataSource
+
+    @Binds
+    abstract fun bindIncomeDataSource(incomeDataSourceImpl: IncomeDataSourceImpl): IncomeDataSource
 
     @Binds
     abstract fun bindAccountDataSource(accountDataSourceImpl: AccountDataSourceImpl): AccountDataSource

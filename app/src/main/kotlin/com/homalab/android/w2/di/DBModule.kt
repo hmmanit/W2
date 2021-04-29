@@ -50,6 +50,9 @@ object DBModule {
     fun provideExpenseDao(wDatabase: WDatabase) = wDatabase.expenseDao
 
     @Provides
+    fun provideIncomeDao(wDatabase: WDatabase) = wDatabase.incomeDao
+
+    @Provides
     fun provideAccountDao(wDatabase: WDatabase) = wDatabase.accountDao
 
     @Provides

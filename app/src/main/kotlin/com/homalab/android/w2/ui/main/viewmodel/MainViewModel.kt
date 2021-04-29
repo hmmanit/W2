@@ -9,6 +9,7 @@ import com.homalab.android.w2.data.repository.accountGroup.AccountGroupRepositor
 import com.homalab.android.w2.data.repository.accounts.AccountsRepository
 import com.homalab.android.w2.data.repository.category.CategoryRepository
 import com.homalab.android.w2.data.repository.expense.ExpenseRepository
+import com.homalab.android.w2.data.repository.income.IncomeRepository
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homanad.android.common.components.vm.BaseViewModel
@@ -27,6 +28,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val expenseRepository: ExpenseRepository,
+    private val incomeRepository: IncomeRepository,
     private val categoryRepository: CategoryRepository,
     private val accountGroupRepository: AccountGroupRepository,
     private val accountsRepository: AccountsRepository

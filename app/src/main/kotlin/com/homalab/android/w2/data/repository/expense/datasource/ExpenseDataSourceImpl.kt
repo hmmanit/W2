@@ -4,8 +4,9 @@ import com.homalab.android.w2.data.db.dao.ExpenseDao
 import com.homalab.android.w2.data.entity.Expense
 import javax.inject.Inject
 
-class ExpenseDataSourceImpl @Inject constructor(private val expenseDao: ExpenseDao) :
-    ExpenseDataSource {
+class ExpenseDataSourceImpl @Inject constructor(
+    private val expenseDao: ExpenseDao
+) : ExpenseDataSource {
 
     override suspend fun createExpense(expense: Expense): Long {
         return expenseDao.insert(expense)
@@ -20,6 +21,6 @@ class ExpenseDataSourceImpl @Inject constructor(private val expenseDao: ExpenseD
     }
 
     override suspend fun getAllExpenses(): List<Expense> {
-        return expenseDao.getAllSpending()
+        return expenseDao.getAllExpenses()
     }
 }
