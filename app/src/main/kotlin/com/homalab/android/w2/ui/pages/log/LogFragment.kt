@@ -1,6 +1,7 @@
 package com.homalab.android.w2.ui.pages.log
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +18,14 @@ import com.homalab.android.w2.common.util.AnimUtil
 import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
+import com.homalab.android.w2.data.entity.Income
 import com.homalab.android.w2.databinding.FragmentLogBinding
 import com.homalab.android.w2.ui.main.intent.MainIntent
 import com.homalab.android.w2.ui.main.viewmodel.MainViewModel
 import com.homalab.android.w2.ui.main.viewstate.MainState
 import com.homalab.android.w2.ui.pages.log.account.SlidingAccountAdapter
 import com.homalab.android.w2.ui.pages.log.category.SelectionCategoryAdapter
+import com.homalab.android.w2.ui.pages.log.viewmodel.LogViewModel
 import com.homanad.android.common.components.ui.BaseFragment
 import com.homanad.android.common.extensions.view.gone
 import com.homanad.android.common.extensions.view.visible
@@ -36,6 +39,7 @@ import kotlinx.coroutines.launch
 class LogFragment : BaseFragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
+    private val logViewModel: LogViewModel by viewModels()
     private lateinit var binding: FragmentLogBinding
 
     private lateinit var mBottomSheetSelector: BottomSheetBehavior<View>
@@ -64,6 +68,7 @@ class LogFragment : BaseFragment() {
 
                 override fun onSelected(category: Category) {
                     binding.textCategory.setText(category.name)
+                    categoryId = category.id
                     hideBottomSheet()
                 }
             })
@@ -73,6 +78,7 @@ class LogFragment : BaseFragment() {
         SlidingAccountAdapter(object : SlidingAccountAdapter.SelectionAccountListener {
             override fun onSelected(account: Account) {
                 binding.textAccount.setText(account.name)
+                accountId = account.id
                 hideBottomSheet()
             }
         })
@@ -119,7 +125,8 @@ class LogFragment : BaseFragment() {
         initBottomSheetSelector()
         with(binding) {
             buttonSave.setOnClickListener {
-                test()
+//                test()
+                collect()
                 findNavController().navigateUp()
             }
             header.buttonBack.setOnClickListener {
@@ -175,6 +182,62 @@ class LogFragment : BaseFragment() {
 
             mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
         }
+    }
+
+    private var accountId: Long = 0
+    private var categoryId: Long = 0
+
+    private fun collect() {
+        val amount = binding.textAmount.text.toString()
+        val note = binding.textNote.text.toString()
+        val description = binding.textDescription.text.toString()
+
+        when (binding.toggleGroup.checkedButtonId) {
+            R.id.button_expense -> {
+                Log.d("aaaaaaaaaaaaaaaaaaaaaaaa", "expense")
+                lifecycleScope.launch {
+                    mainViewModel.userIntent.send(
+                        MainIntent.CreateExpenseIntent(
+                            Expense(
+                                0,
+                                note,
+                                description,
+                                amount.toFloat(),
+                                accountId,
+                                categoryId,
+                                System.currentTimeMillis(),
+                                System.currentTimeMillis()
+                            )
+                        )
+                    )
+
+                    mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
+                }
+            }
+            R.id.button_income -> {
+                Log.d("aaaaaaaaaaaaaaaaaaaaaaaa", "income")
+                lifecycleScope.launch {
+                    mainViewModel.userIntent.send(
+                        MainIntent.CreateIncomeIntent(
+                            Income(
+                                0,
+                                note,
+                                description,
+                                amount.toFloat(),
+                                accountId,
+                                categoryId,
+                                System.currentTimeMillis(),
+                                System.currentTimeMillis()
+                            )
+                        )
+                    )
+
+                    mainViewModel.userIntent.send(MainIntent.GetAllExpensesIntent)
+                }
+            }
+        }
+
+
     }
 
     private fun initBottomSheetSelector() {

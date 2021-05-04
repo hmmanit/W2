@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.homalab.android.w2.data.entity.Account
 import com.homalab.android.w2.data.entity.Category
 import com.homalab.android.w2.data.entity.Expense
+import com.homalab.android.w2.data.entity.Income
 import com.homalab.android.w2.data.repository.account.AccountRepository
 import com.homalab.android.w2.data.repository.accountGroup.AccountGroupRepository
 import com.homalab.android.w2.data.repository.accounts.AccountsRepository
@@ -53,8 +54,10 @@ class MainViewModel @Inject constructor(
                     is MainIntent.DeleteAccountIntent -> deleteWallet(it.account)
                     is MainIntent.UpdateAccountIntent -> updateWallet(it.account)
 
-                    is MainIntent.GetAllExpensesIntent -> getAllSpending()
-                    is MainIntent.CreateExpenseIntent -> createSpending(it.expense)
+                    is MainIntent.GetAllExpensesIntent -> getAllExpenses()
+                    is MainIntent.CreateExpenseIntent -> createExpense(it.expense)
+
+                    is MainIntent.CreateIncomeIntent -> createIncome(it.income)
 
                     is MainIntent.GetAllCategoriesIntent -> getCategories(it.type)
                 }
@@ -109,7 +112,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getAllSpending() {
+    private fun getAllExpenses() {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
@@ -120,7 +123,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun createSpending(expense: Expense) {
+    private fun createExpense(expense: Expense) {
         viewModelScope.launch {
             _state.value = MainState.Loading
             _state.value = try {
@@ -137,6 +140,18 @@ class MainViewModel @Inject constructor(
             _state.value = MainState.Loading
             _state.value = try {
                 MainState.CategoriesReturned(categoryRepository.getAllCategories(type.ordinal))
+            } catch (e: Exception) {
+                MainState.Error(e.localizedMessage)
+            }
+        }
+    }
+
+    private fun createIncome(income: Income) {
+        viewModelScope.launch {
+            _state.value = MainState.Loading
+            _state.value = try {
+                incomeRepository.createIncome(income)
+                MainState.Idle
             } catch (e: Exception) {
                 MainState.Error(e.localizedMessage)
             }
