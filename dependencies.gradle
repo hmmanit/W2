@@ -101,7 +101,7 @@ ext {
     activity_ktx = "androidx.activity:activity-ktx:$activity_ktx_version"
     fragment_ktx = "androidx.fragment:fragment-ktx:$fragment_ktx_version"
 
-    curved_bottom_navigation = "np.com.susanthapa.curved_bottom_navigation:curved_bottom_navigation:0.6.3"
+    curved_bottom_navigation = "np.com.susanthapa:curved_bottom_navigation:0.6.5"
 
     palette = "androidx.palette:palette:$palette_version"
 
